@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KAS Swim Academy — Learn · Train · Compete | Harare, Zimbabwe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#040d1a;--navy:#071828;--deep:#0a2540;
+  --blue:#1155cc;--sky:#1a8fe3;--cyan:#00c4e8;
+  --white:#fff;--gold:#f0b429;
+  --text:rgba(255,255,255,.62);--textmd:rgba(255,255,255,.82);
+  --border:rgba(0,196,232,.13);--glass:rgba(255,255,255,.04);
+  --rad:18px;--radsm:10px;--radlg:26px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;overflow-x:hidden;}
+body{font-family:'DM Sans',sans-serif;background:var(--ink);color:var(--white);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+img{display:block;max-width:100%;height:auto;}
+a{text-decoration:none;color:inherit;}
+button{font-family:inherit;cursor:pointer;}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--ink);}
+::-webkit-scrollbar-thumb{background:var(--cyan);border-radius:4px;}
+
+/* NAV */
+#nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 5%;transition:padding .35s,background .35s,border-color .35s;border-bottom:1px solid transparent;}
+#nav.scrolled{padding:.7rem 5%;background:rgba(4,13,26,.95);border-color:var(--border);backdrop-filter:blur(18px);}
+.nav-brand{display:flex;align-items:center;gap:.65rem;}
+.nav-logo-box{width:38px;height:38px;border-radius:9px;flex-shrink:0;background:linear-gradient(135deg,var(--blue),var(--cyan));display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:.9rem;color:var(--ink);box-shadow:0 4px 14px rgba(0,196,232,.3);}
+.nav-name{font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;}
+.nav-name span{color:var(--cyan);}
+.nav-links{display:flex;align-items:center;gap:2rem;list-style:none;}
+.nav-links a{font-family:'Syne',sans-serif;font-size:.76rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.55);transition:color .2s;}
+.nav-links a:hover{color:var(--cyan);}
+.nav-cta{background:linear-gradient(135deg,var(--blue),var(--cyan))!important;color:var(--ink)!important;padding:.52rem 1.4rem;border-radius:50px;box-shadow:0 4px 18px rgba(0,196,232,.28);transition:box-shadow .2s,transform .2s!important;}
+.nav-cta:hover{box-shadow:0 8px 32px rgba(0,196,232,.5)!important;transform:translateY(-1px)!important;}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:.4rem;}
+.hamburger span{display:block;width:23px;height:2px;background:var(--cyan);border-radius:2px;transition:.3s;}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
+.mob-nav{display:none;position:fixed;inset:0;z-index:899;background:rgba(4,13,26,.97);backdrop-filter:blur(20px);flex-direction:column;align-items:center;justify-content:center;gap:2rem;}
+.mob-nav.open{display:flex;}
+.mob-nav a{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:700;color:rgba(255,255,255,.7);transition:color .2s,transform .2s;}
+.mob-nav a:hover{color:var(--cyan);transform:translateX(8px);}
+.mob-close{position:absolute;top:1.4rem;right:5%;background:none;border:none;color:var(--cyan);font-size:1.5rem;padding:.4rem;}
+
+/* HERO */
+#home{position:relative;min-height:100vh;display:flex;align-items:center;padding:7rem 5% 5rem;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;z-index:0;background:url('https://images.unsplash.com/photo-1560090995-01632a28895b?w=1800&q=80&auto=format&fit=crop') center/cover no-repeat;opacity:.1;}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,var(--ink) 0%,rgba(4,13,26,.7) 55%,var(--ink) 100%),linear-gradient(to top,var(--ink) 0%,transparent 55%);}
+.hero-glow{position:absolute;top:5%;right:0;z-index:1;pointer-events:none;width:clamp(280px,42vw,650px);height:clamp(280px,42vw,650px);border-radius:50%;background:radial-gradient(circle,rgba(0,196,232,.1) 0%,transparent 65%);animation:glowf 7s ease-in-out infinite;}
+@keyframes glowf{0%,100%{transform:translate(0,0);}50%{transform:translate(-15px,12px);}}
+.hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,5rem);align-items:center;max-width:1200px;width:100%;margin:0 auto;}
+.hero-badge{display:inline-flex;align-items:center;gap:.45rem;font-family:'Syne',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan);border:1px solid rgba(0,196,232,.3);padding:.32rem .9rem;border-radius:50px;margin-bottom:1.4rem;animation:fup .8s ease both;}
+.hero-h1{font-family:'Instrument Serif',serif;font-size:clamp(2.6rem,5.5vw,4.8rem);font-weight:400;line-height:1.06;margin-bottom:1.1rem;animation:fup .8s .08s ease both;}
+.hero-h1 em{color:var(--cyan);font-style:italic;}
+.hero-h1 .sub{display:block;font-family:'Syne',sans-serif;font-size:.42em;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);font-style:normal;margin-bottom:.4rem;}
+.hero-p{font-size:clamp(.9rem,1.5vw,1.05rem);color:var(--text);line-height:1.82;max-width:480px;margin-bottom:2rem;animation:fup .8s .16s ease both;}
+.hero-btns{display:flex;gap:.85rem;flex-wrap:wrap;animation:fup .8s .24s ease both;}
+.btn-primary{display:inline-flex;align-items:center;gap:.5rem;background:linear-gradient(135deg,var(--blue),var(--cyan));color:var(--ink);font-family:'Syne',sans-serif;font-weight:700;font-size:.86rem;letter-spacing:.04em;padding:.88rem 2rem;border-radius:50px;border:none;box-shadow:0 6px 28px rgba(0,196,232,.32);transition:transform .2s,box-shadow .2s;}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 40px rgba(0,196,232,.52);}
+.btn-ghost{display:inline-flex;align-items:center;gap:.5rem;border:1.5px solid rgba(0,196,232,.38);color:var(--cyan);font-family:'Syne',sans-serif;font-weight:700;font-size:.86rem;letter-spacing:.04em;padding:.88rem 2rem;border-radius:50px;background:none;transition:background .2s,border-color .2s;}
+.btn-ghost:hover{background:rgba(0,196,232,.09);border-color:rgba(0,196,232,.65);}
+.hero-img-col{position:relative;animation:fright .85s .1s ease both;}
+.hero-img-frame{border-radius:var(--radlg);overflow:hidden;aspect-ratio:4/5;box-shadow:0 40px 100px rgba(0,0,0,.6),0 0 0 1px rgba(0,196,232,.1);position:relative;}
+.hero-img-frame img{width:100%;height:100%;object-fit:cover;display:block;}
+.hero-img-frame::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(4,13,26,.55) 0%,transparent 50%);}
+.hero-live{position:absolute;bottom:1.5rem;left:1.5rem;z-index:2;display:flex;align-items:center;gap:.6rem;background:rgba(4,13,26,.85);border:1px solid rgba(0,196,232,.18);backdrop-filter:blur(10px);border-radius:50px;padding:.5rem 1.1rem .5rem .5rem;}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--cyan);animation:livep 2s ease-in-out infinite;}
+@keyframes livep{0%,100%{box-shadow:0 0 0 0 rgba(0,196,232,.6);}50%{box-shadow:0 0 0 5px rgba(0,196,232,0);}}
+.hero-live span{font-size:.76rem;font-weight:600;color:var(--textmd);}
+.hero-stat{position:absolute;top:-1.2rem;left:-1.2rem;background:var(--deep);border:1px solid rgba(0,196,232,.18);border-radius:var(--rad);padding:1rem 1.3rem;box-shadow:0 16px 48px rgba(0,0,0,.4);animation:statf 5s ease-in-out infinite;min-width:120px;}
+@keyframes statf{0%,100%{transform:translateY(0);}50%{transform:translateY(-7px);}}
+.stat-n{font-family:'Instrument Serif',serif;font-size:2rem;line-height:1;background:linear-gradient(135deg,var(--sky),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.stat-l{font-size:.7rem;color:var(--text);margin-top:.25rem;line-height:1.4;}
+.hero-wave{position:absolute;bottom:0;left:0;width:100%;line-height:0;z-index:3;}
+.hero-wave svg{display:block;width:100%;}
+@keyframes fup{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fright{from{opacity:0;transform:translateX(36px);}to{opacity:1;transform:translateX(0);}}
+
+/* TICKER */
+.ticker{background:linear-gradient(90deg,var(--blue),var(--cyan),var(--blue));background-size:200% 100%;animation:tickbg 4s linear infinite;padding:.65rem 0;overflow:hidden;position:relative;z-index:5;}
+@keyframes tickbg{0%{background-position:0%}100%{background-position:200%}}
+.ticker-inner{display:flex;white-space:nowrap;animation:tickscroll 24s linear infinite;}
+.ticker-inner:hover{animation-play-state:paused;}
+@keyframes tickscroll{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+.tick-item{display:inline-flex;align-items:center;gap:.55rem;padding:0 1.8rem;font-family:'Syne',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);}
+.tick-sep{width:4px;height:4px;border-radius:50%;background:rgba(4,13,26,.4);flex-shrink:0;}
+
+/* SECTIONS */
+section{padding:clamp(4rem,8vw,7rem) 5%;width:100%;position:relative;z-index:1;}
+.container{max-width:1200px;margin:0 auto;width:100%;}
+.stag{display:inline-block;font-family:'Syne',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan);margin-bottom:.55rem;}
+.sh2{font-family:'Instrument Serif',serif;font-size:clamp(1.9rem,4vw,3rem);font-weight:400;color:var(--white);line-height:1.12;margin-bottom:.85rem;}
+.sh2 em{color:var(--cyan);font-style:italic;}
+.ssub{color:var(--text);line-height:1.82;font-size:clamp(.88rem,1.5vw,1rem);max-width:540px;}
+.shead{margin-bottom:3.2rem;}
+.centered{text-align:center;}
+.centered .ssub{margin:0 auto;}
+.wdiv{line-height:0;overflow:hidden;width:100%;position:relative;z-index:2;}
+.wdiv svg{display:block;width:100%;}
+
+/* ABOUT */
+#about{background:linear-gradient(170deg,var(--ink) 0%,var(--navy) 100%);}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,5rem);align-items:center;}
+.about-img-col{position:relative;padding-bottom:2.2rem;}
+.about-img-main{border-radius:var(--radlg);overflow:hidden;aspect-ratio:4/5;box-shadow:0 40px 100px rgba(0,0,0,.55),0 0 0 1px var(--border);}
+.about-img-main img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s;}
+.about-img-main:hover img{transform:scale(1.04);}
+.about-img-sm{position:absolute;bottom:-1.6rem;right:-1.4rem;width:52%;border-radius:var(--rad);overflow:hidden;aspect-ratio:3/2;box-shadow:0 20px 56px rgba(0,0,0,.55),0 0 0 3px rgba(0,196,232,.08);}
+.about-img-sm img{width:100%;height:100%;object-fit:cover;display:block;}
+.about-badge-box{position:absolute;top:-1rem;left:-1rem;z-index:5;background:linear-gradient(135deg,var(--gold),#f5c740);color:#1a0e00;font-weight:700;font-size:.76rem;padding:.9rem 1.2rem;border-radius:var(--radsm);box-shadow:0 8px 28px rgba(240,180,41,.38);line-height:1.5;}
+.about-badge-box strong{display:block;font-family:'Syne',sans-serif;font-size:1.3rem;}
+.about-text p{color:var(--text);line-height:1.9;margin-bottom:1.1rem;font-size:clamp(.88rem,1.5vw,1rem);}
+.about-pills{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:1.6rem;}
+.apill{display:flex;align-items:center;gap:.5rem;background:rgba(0,196,232,.06);border:1px solid var(--border);border-radius:var(--radsm);padding:.65rem 1rem;font-size:.82rem;color:var(--textmd);transition:background .2s,transform .2s;}
+.apill:hover{background:rgba(0,196,232,.11);transform:translateX(4px);}
+.apill svg{color:var(--cyan);flex-shrink:0;width:15px;height:15px;}
+
+/* SERVICES */
+#services{background:var(--navy);}
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:1.3rem;}
+.svc-card{background:var(--glass);border:1px solid var(--border);border-radius:var(--radlg);overflow:hidden;transition:transform .3s,box-shadow .3s,border-color .3s;position:relative;}
+.svc-card:hover{transform:translateY(-7px);box-shadow:0 28px 70px rgba(0,0,0,.45);border-color:rgba(0,196,232,.32);}
+.svc-img{height:190px;overflow:hidden;position:relative;}
+.svc-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s;}
+.svc-card:hover .svc-img img{transform:scale(1.06);}
+.svc-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(7,24,40,.8) 0%,transparent 55%);}
+.svc-num{position:absolute;top:.9rem;right:1.1rem;z-index:2;font-family:'Instrument Serif',serif;font-size:2.2rem;color:rgba(0,196,232,.25);line-height:1;pointer-events:none;}
+.svc-body{padding:1.5rem;}
+.svc-icon{width:42px;height:42px;border-radius:11px;background:rgba(0,196,232,.09);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--cyan);margin-bottom:.9rem;}
+.svc-title{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;margin-bottom:.55rem;}
+.svc-desc{font-size:.85rem;color:var(--text);line-height:1.75;margin-bottom:.9rem;}
+.svc-tags{display:flex;flex-wrap:wrap;gap:.32rem;}
+.tag{font-size:.63rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.22rem .6rem;border-radius:50px;background:rgba(0,196,232,.08);color:var(--cyan);border:1px solid rgba(0,196,232,.16);}
+.svc-card.feat{grid-column:span 2;}
+.svc-card.feat .svc-img{height:240px;}
+
+/* ACHIEVEMENTS */
+#achievements{background:linear-gradient(170deg,var(--ink) 0%,var(--navy) 100%);overflow:hidden;position:relative;}
+#achievements::before{content:'';position:absolute;bottom:-150px;left:-150px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(0,196,232,.05),transparent 65%);pointer-events:none;}
+.ach-layout{display:grid;grid-template-columns:44% 1fr;gap:clamp(2rem,5vw,5rem);align-items:center;}
+.ach-lead{color:var(--text);line-height:1.85;font-size:clamp(.88rem,1.5vw,1rem);margin-bottom:1.8rem;}
+.bh{display:flex;align-items:flex-start;gap:.9rem;padding:1.1rem 1.3rem;border-radius:var(--radsm);background:var(--glass);border:1px solid var(--border);margin-bottom:.8rem;transition:background .25s,transform .2s;}
+.bh:hover{background:rgba(0,196,232,.08);transform:translateX(5px);}
+.bh-icon{width:40px;height:40px;flex-shrink:0;border-radius:11px;background:rgba(0,196,232,.09);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--cyan);}
+.bh strong{display:block;font-size:.88rem;margin-bottom:.2rem;}
+.bh span{font-size:.8rem;color:var(--text);line-height:1.55;}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.scard{background:var(--glass);border:1px solid var(--border);border-radius:var(--rad);padding:1.7rem 1.3rem;text-align:center;position:relative;overflow:hidden;transition:transform .3s,background .3s;}
+.scard::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue),var(--cyan));transform:scaleX(0);transform-origin:center;transition:transform .3s;}
+.scard:hover{transform:translateY(-5px);background:rgba(0,196,232,.07);}
+.scard:hover::after{transform:scaleX(1);}
+.scard.wide{grid-column:1/-1;display:flex;align-items:center;gap:1.3rem;text-align:left;}
+.scard .ico{width:50px;height:50px;border-radius:13px;flex-shrink:0;background:rgba(0,196,232,.09);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--cyan);margin:0 auto 1rem;}
+.scard.wide .ico{margin:0;}
+.snum{font-family:'Instrument Serif',serif;font-size:2.5rem;font-weight:400;line-height:1;background:linear-gradient(135deg,var(--sky),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.35rem;}
+.slbl{font-size:.78rem;color:var(--text);line-height:1.5;}
+.scard.wide .slbl{font-size:.84rem;}
+
+/* GALLERY */
+#gallery{padding:0;background:var(--ink);overflow:hidden;}
+.gal-intro{padding:clamp(3rem,6vw,5rem) 5% clamp(1.5rem,3vw,2.5rem);text-align:center;}
+.gal-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;grid-template-rows:290px 290px;gap:3px;}
+.gi{overflow:hidden;position:relative;cursor:pointer;}
+.gi img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s;filter:brightness(.82);}
+.gi:hover img{transform:scale(1.07);filter:brightness(1);}
+.gi::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(4,13,26,.6) 0%,transparent 50%);}
+.gi:first-child{grid-row:span 2;}
+.gilbl{position:absolute;bottom:1.1rem;left:1.3rem;z-index:2;opacity:0;transform:translateY(5px);transition:.3s;}
+.gi:hover .gilbl{opacity:1;transform:translateY(0);}
+.gilbl span{font-family:'Syne',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);background:rgba(4,13,26,.75);padding:.28rem .75rem;border-radius:50px;border:1px solid rgba(0,196,232,.18);}
+
+/* PRICING */
+#pricing{background:var(--navy);}
+.price-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.5rem,3vw,3rem);align-items:start;}
+.glass-card{background:rgba(4,13,26,.6);border:1px solid var(--border);border-radius:var(--radlg);padding:clamp(1.5rem,3vw,2.4rem);backdrop-filter:blur(4px);}
+.card-h3{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;color:var(--cyan);margin-bottom:1.4rem;display:flex;align-items:center;gap:.6rem;}
+.day-row{display:flex;align-items:center;gap:.9rem;padding:.8rem 0;border-bottom:1px solid rgba(255,255,255,.06);}
+.day-row:last-child{border-bottom:none;}
+.dd{width:6px;height:6px;border-radius:50%;background:var(--cyan);flex-shrink:0;}
+.dn{font-weight:600;font-size:.9rem;flex:1;}
+.dt{font-size:.8rem;color:var(--text);text-align:right;line-height:1.6;}
+.snote{margin-top:1.3rem;padding:.9rem 1.1rem;background:rgba(0,196,232,.05);border:1px solid var(--border);border-radius:var(--radsm);font-size:.8rem;color:var(--text);line-height:1.7;}
+.price-card{text-align:center;position:relative;overflow:hidden;}
+.price-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blue),var(--cyan));}
+.price-eyebrow{font-family:'Syne',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--cyan);display:block;margin-bottom:.5rem;}
+.price-big{font-family:'Instrument Serif',serif;font-size:clamp(3.5rem,7vw,5rem);font-weight:400;line-height:1;background:linear-gradient(135deg,var(--sky),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.price-or{display:flex;align-items:center;gap:.8rem;margin:1rem 0;font-size:.75rem;color:rgba(255,255,255,.3);letter-spacing:.1em;text-transform:uppercase;}
+.price-or::before,.price-or::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.1);}
+.price-big2{font-family:'Instrument Serif',serif;font-size:2.8rem;font-weight:400;background:linear-gradient(135deg,var(--sky),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;margin-bottom:.2rem;}
+.price-sub{font-size:.82rem;color:var(--text);margin-bottom:1.8rem;}
+.price-feats{list-style:none;text-align:left;margin-bottom:2rem;}
+.price-feats li{display:flex;align-items:center;gap:.7rem;padding:.68rem 0;border-bottom:1px solid rgba(255,255,255,.06);color:var(--textmd);font-size:.86rem;}
+.price-feats li:last-child{border-bottom:none;}
+.price-feats li svg{color:var(--cyan);flex-shrink:0;width:15px;height:15px;}
+.sibling-note{background:rgba(0,196,232,.06);border:1px solid var(--border);border-radius:var(--radsm);padding:.85rem 1rem;margin-bottom:1.5rem;font-size:.82rem;color:var(--textmd);text-align:center;line-height:1.6;}
+
+/* LOCATION */
+#location{background:linear-gradient(170deg,var(--navy) 0%,var(--ink) 100%);}
+.loc-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.5rem,3vw,3rem);align-items:start;}
+.map-wrap{border-radius:var(--radlg);overflow:hidden;border:1px solid var(--border);height:clamp(280px,45vw,420px);}
+.map-wrap iframe{width:100%;height:100%;border:none;display:block;}
+.loc-cards{display:flex;flex-direction:column;gap:.8rem;}
+.lcard{display:flex;align-items:flex-start;gap:.9rem;background:var(--glass);border:1px solid var(--border);border-radius:var(--radsm);padding:1.1rem 1.2rem;transition:background .2s;}
+.lcard:hover{background:rgba(0,196,232,.07);}
+.licon{width:36px;height:36px;border-radius:9px;flex-shrink:0;background:rgba(0,196,232,.09);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--cyan);}
+.llbl{font-family:'Syne',sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);margin-bottom:.2rem;}
+.lval{font-size:.84rem;color:var(--textmd);line-height:1.55;}
+.lval a{color:var(--textmd);}
+.lval a:hover{color:var(--cyan);}
+
+/* CONTACT */
+#contact{background:var(--ink);}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.5rem,4vw,3.5rem);align-items:start;}
+.reach-row{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:1.1rem;}
+.reach-btn{display:flex;align-items:center;gap:.7rem;padding:.85rem 1rem;border-radius:var(--radsm);transition:transform .2s,box-shadow .2s;}
+.reach-lbl{font-family:'Syne',sans-serif;font-weight:700;font-size:.8rem;color:#fff;line-height:1.2;}
+.reach-sub{font-size:.67rem;color:rgba(255,255,255,.65);margin-top:.08rem;}
+.rwa{background:#1da851;}
+.rwa:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(29,168,81,.4);}
+.form-card{background:var(--glass);border:1px solid var(--border);border-radius:var(--radlg);padding:clamp(1.4rem,3vw,2.2rem);}
+.form-title{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;display:flex;align-items:center;gap:.55rem;margin-bottom:1.3rem;}
+.form-title svg{color:var(--cyan);flex-shrink:0;width:17px;height:17px;}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;}
+.fg{display:flex;flex-direction:column;gap:.3rem;margin-bottom:.75rem;}
+.fl{font-family:'Syne',sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.38);}
+.fi,.fsel,.fta{background:rgba(4,13,26,.7);border:1px solid var(--border);border-radius:var(--radsm);padding:.74rem .95rem;color:var(--white);font-family:'DM Sans',sans-serif;font-size:.88rem;outline:none;transition:border-color .2s,box-shadow .2s;-webkit-appearance:none;width:100%;}
+.fi:focus,.fsel:focus,.fta:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(0,196,232,.1);}
+.fta{resize:vertical;min-height:95px;}
+.form-btns{display:flex;gap:.7rem;margin-top:.8rem;flex-wrap:wrap;}
+.btn-wa{display:inline-flex;align-items:center;gap:.45rem;flex:1;justify-content:center;background:linear-gradient(135deg,var(--blue),var(--cyan));color:var(--ink);font-family:'Syne',sans-serif;font-weight:700;font-size:.84rem;padding:.82rem 1.5rem;border-radius:50px;border:none;box-shadow:0 4px 22px rgba(0,196,232,.28);transition:transform .2s,box-shadow .2s;}
+.btn-wa:hover{transform:translateY(-1px);box-shadow:0 8px 32px rgba(0,196,232,.48);}
+.form-hint{font-size:.68rem;color:var(--text);margin-top:.55rem;line-height:1.55;}
+.cinfo-stack{background:var(--glass);border:1px solid var(--border);border-radius:var(--rad);overflow:hidden;}
+.crow{display:flex;align-items:flex-start;gap:.85rem;padding:.95rem 1.1rem;border-bottom:1px solid var(--border);transition:background .2s;}
+.crow:last-child{border-bottom:none;}
+.crow:hover{background:rgba(0,196,232,.06);}
+.cico{width:30px;height:30px;border-radius:8px;flex-shrink:0;margin-top:.1rem;background:rgba(0,196,232,.09);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--cyan);}
+.clbl{font-family:'Syne',sans-serif;font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);margin-bottom:.18rem;}
+.cval{font-size:.82rem;color:var(--textmd);line-height:1.5;}
+.cval a{color:var(--textmd);}
+.cval a:hover{color:var(--cyan);}
+.form-success{display:none;text-align:center;padding:3rem 1rem;}
+.sicon{width:72px;height:72px;border-radius:50%;margin:0 auto 1.3rem;background:linear-gradient(135deg,var(--blue),var(--cyan));display:flex;align-items:center;justify-content:center;color:var(--ink);}
+.sh{font-family:'Instrument Serif',serif;font-size:2rem;margin-bottom:.65rem;}
+.sp{color:var(--text);max-width:440px;margin:0 auto;line-height:1.75;font-size:.92rem;}
+
+/* FOOTER */
+footer{background:#020810;border-top:1px solid var(--border);padding:clamp(2rem,4vw,3.2rem) 5% clamp(1.2rem,2.5vw,1.8rem);overflow:hidden;}
+.footer-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1.8fr 1fr 1fr;gap:2.2rem;margin-bottom:2.2rem;}
+.fbrand{font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;display:flex;align-items:center;gap:.55rem;margin-bottom:.6rem;}
+.fbrand span{color:var(--cyan);}
+.ftagline{font-size:.8rem;color:rgba(255,255,255,.32);font-style:italic;line-height:1.65;max-width:230px;}
+.fcol h4{font-family:'Syne',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);margin-bottom:.9rem;}
+.fcol ul{list-style:none;display:flex;flex-direction:column;gap:.55rem;}
+.fcol ul a{color:rgba(255,255,255,.42);font-size:.84rem;transition:color .2s;}
+.fcol ul a:hover{color:var(--cyan);}
+.fbot{max-width:1200px;margin:0 auto;padding-top:1.2rem;border-top:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.7rem;font-size:.74rem;color:rgba(255,255,255,.26);}
+.fbot a{color:rgba(0,196,232,.5);}
+.fbot a:hover{color:var(--cyan);}
+
+/* REVEAL */
+.r{opacity:0;transform:translateY(34px);transition:opacity .72s ease,transform .72s ease;}
+.rl{opacity:0;transform:translateX(-38px);transition:opacity .72s ease,transform .72s ease;}
+.rr{opacity:0;transform:translateX(38px);transition:opacity .72s ease,transform .72s ease;}
+.r.on,.rl.on,.rr.on{opacity:1;transform:none;}
+
+/* RESPONSIVE */
+@media(max-width:1040px){.svc-card.feat{grid-column:span 1;}.footer-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:860px){
+  .nav-links{display:none;}.hamburger{display:flex;}
+  .hero-grid{grid-template-columns:1fr;text-align:center;gap:2.5rem;}
+  .hero-img-col{max-width:400px;margin:0 auto;width:100%;order:-1;}
+  .hero-p{margin-left:auto;margin-right:auto;}.hero-btns{justify-content:center;}
+  .hero-stat{display:none;}
+  .about-grid{grid-template-columns:1fr;}
+  .about-img-sm{display:none;}
+  .about-badge-box{left:auto;right:1rem;top:-1rem;}
+  .ach-layout{grid-template-columns:1fr;}.stats-grid{grid-template-columns:1fr 1fr;}
+  .gal-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto;}.gi:first-child{grid-row:span 1;}.gi{height:240px;}
+  .price-grid{grid-template-columns:1fr;}.loc-grid{grid-template-columns:1fr;}
+  .contact-grid{grid-template-columns:1fr;}.footer-grid{grid-template-columns:1fr;gap:1.6rem;}
+  .fbot{flex-direction:column;align-items:flex-start;}
+}
+@media(max-width:600px){
+  section{padding:3rem 5%;}.hero-h1{font-size:clamp(2.1rem,10vw,2.8rem);}
+  .reach-row{grid-template-columns:1fr;}.frow{grid-template-columns:1fr;}
+  .form-btns{flex-direction:column;}.btn-wa{width:100%;}
+  .gal-grid{grid-template-columns:1fr;}.gi{height:220px;}.gilbl{opacity:1;transform:none;}
+  .stats-grid{grid-template-columns:1fr;}.svc-card.feat{grid-column:span 1;}.svc-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-brand">
+    <div class="nav-logo-box">KAS</div>
+    <div class="nav-name">KAS <span>Swim</span> Academy</div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Programs</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#location">Location</a></li>
+    <li><a href="#contact" class="nav-cta">Enrol Now</a></li>
+  </ul>
+  <button class="hamburger" id="menuBtn" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="mob-nav" id="mobNav">
+  <button class="mob-close" onclick="closeMenu()">✕</button>
+  <a href="#home" onclick="closeMenu()">Home</a>
+  <a href="#about" onclick="closeMenu()">About</a>
+  <a href="#services" onclick="closeMenu()">Programs</a>
+  <a href="#pricing" onclick="closeMenu()">Pricing</a>
+  <a href="#gallery" onclick="closeMenu()">Gallery</a>
+  <a href="#location" onclick="closeMenu()">Location</a>
+  <a href="#contact" onclick="closeMenu()" style="color:var(--cyan)">Enrol Now</a>
+</div>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-grid">
+    <div class="hero-text">
+      <div class="hero-badge">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        108 Greendale Ave, Harare, Zimbabwe
+      </div>
+      <h1 class="hero-h1">
+        <span class="sub">Learn · Train · Compete</span>
+        Master the <em>Water.</em><br>Master Yourself.
+      </h1>
+      <p class="hero-p">Harare's dedicated swim academy — professional coaching for kids and adults, from absolute beginners to competitive athletes. Private and group lessons available.</p>
+      <div class="hero-btns">
+        <a href="#contact" class="btn-primary">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          Enrol Now
+        </a>
+        <a href="#services" class="btn-ghost">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/></svg>
+          Our Programs
+        </a>
+      </div>
+    </div>
+    <div class="hero-img-col">
+      <div class="hero-stat">
+        <div class="stat-n">18+</div>
+        <div class="stat-l">Athletes at Bonaqua Africa Triathlon Cup 2025</div>
+      </div>
+      <div class="hero-img-frame">
+        <img src="m1.jpg" alt="KAS Swim Academy pool training">
+        <div class="hero-live"><div class="live-dot"></div><span>Classes Available Now</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-wave"><svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0 40 C360 80 1080 0 1440 40 L1440 80 L0 80 Z" fill="var(--ink)"/></svg></div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-inner">
+    <span class="tick-item">KAS Swim Academy <span class="tick-sep"></span></span>
+    <span class="tick-item">Swimming Lessons <span class="tick-sep"></span></span>
+    <span class="tick-item">Triathlon Training <span class="tick-sep"></span></span>
+    <span class="tick-item">Kids &amp; Adults <span class="tick-sep"></span></span>
+    <span class="tick-item">Beginner to Advanced <span class="tick-sep"></span></span>
+    <span class="tick-item">Private &amp; Group <span class="tick-sep"></span></span>
+    <span class="tick-item">Greendale, Harare <span class="tick-sep"></span></span>
+    <span class="tick-item">Booking Is Essential <span class="tick-sep"></span></span>
+    <span class="tick-item">KAS Swim Academy <span class="tick-sep"></span></span>
+    <span class="tick-item">Swimming Lessons <span class="tick-sep"></span></span>
+    <span class="tick-item">Triathlon Training <span class="tick-sep"></span></span>
+    <span class="tick-item">Kids &amp; Adults <span class="tick-sep"></span></span>
+    <span class="tick-item">Beginner to Advanced <span class="tick-sep"></span></span>
+    <span class="tick-item">Private &amp; Group <span class="tick-sep"></span></span>
+    <span class="tick-item">Greendale, Harare <span class="tick-sep"></span></span>
+    <span class="tick-item">Booking Is Essential <span class="tick-sep"></span></span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-img-col rl">
+        <div class="about-badge-box"><strong>KAS</strong>Academy</div>
+        <div class="about-img-main">
+          <img src="m2.jpg" alt="KAS Swim Academy coaching session">
+        </div>
+        <div class="about-img-sm">
+          <img src="m.jpg" alt="Kids swimming lesson">
+        </div>
+      </div>
+      <div class="rr">
+        <div class="stag">About KAS Swim Academy</div>
+        <h2 class="sh2">Where Champions<br><em>Are Made</em></h2>
+        <p class="about-text" style="color:var(--text);line-height:1.9;margin-bottom:1rem;font-size:clamp(.88rem,1.5vw,1rem);">KAS Swim Academy is Harare's dedicated aquatic training hub, based at 108 Greendale Avenue, Greendale. We offer professional swimming lessons and triathlon training for kids and adults — from complete beginners through to competitive athletes.</p>
+        <p style="color:var(--text);line-height:1.9;margin-bottom:1rem;font-size:clamp(.88rem,1.5vw,1rem);">Our athletes have competed at the Bonaqua Africa Triathlon Cup and represented Triathlon Zimbabwe at the SA Youth Championships. We develop not just swimmers, but complete, confident, competitive athletes.</p>
+        <div class="about-pills">
+          <div class="apill"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Kids &amp; Adults</div>
+          <div class="apill"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>Beginner to Advanced</div>
+          <div class="apill"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Private &amp; Group Lessons</div>
+          <div class="apill"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Competitive Training</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<div class="wdiv"><svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0 0 C480 60 960 0 1440 60 L1440 60 L0 60 Z" fill="var(--navy)"/></svg></div>
+<section id="services">
+  <div class="container">
+    <div class="shead centered r">
+      <div class="stag">What We Offer</div>
+      <h2 class="sh2">Our <em>Programs</em></h2>
+      <p class="ssub">Every program is coached by professionals and designed to build real skills — whether you're learning to swim or training to compete.</p>
+    </div>
+    <div class="svc-grid">
+      <div class="svc-card r">
+        <div class="svc-img"><img src="kid.jpg" alt="Kids swimming lessons"><div class="svc-num">01</div></div>
+        <div class="svc-body">
+          <div class="svc-icon"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <div class="svc-title">Kids Swimming Lessons</div>
+          <p class="svc-desc">Safe, fun, and structured swim coaching for children of all ages. We build water confidence, correct technique, and stroke development from the very first session.</p>
+          <div class="svc-tags"><span class="tag">All Ages</span><span class="tag">Beginner</span><span class="tag">Technique</span><span class="tag">Water Safety</span></div>
+        </div>
+      </div>
+      <div class="svc-card r">
+        <div class="svc-img"><img src="adult.webp" alt="Adult swimming lessons"><div class="svc-num">02</div></div>
+        <div class="svc-body">
+          <div class="svc-icon"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+          <div class="svc-title">Adult Swimming Lessons</div>
+          <p class="svc-desc">Learn to swim at any age. Whether you're starting from scratch or improving your technique and fitness, our adult program meets you exactly where you are.</p>
+          <div class="svc-tags"><span class="tag">Adults</span><span class="tag">Beginner–Advanced</span><span class="tag">Private &amp; Group</span></div>
+        </div>
+      </div>
+      <div class="svc-card feat r">
+        <div class="svc-img"><img src="https://images.unsplash.com/photo-1530549387789-4c1017266635?w=900&q=80&auto=format&fit=crop" alt="Triathlon training swim bike run"><div class="svc-num">03</div></div>
+        <div class="svc-body" style="display:flex;flex-direction:column;justify-content:center;">
+          <div class="svc-icon"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg></div>
+          <div class="svc-title">Triathlon Training</div>
+          <p class="svc-desc">KAS Academy offers structured triathlon training covering all three disciplines — Swim, Bike, and Run — for ages 4 and above. Our athletes have competed at the Bonaqua Africa Triathlon Cup and the SA Youth Championships, with 5 medal winners from the academy in 2025.</p>
+          <div class="svc-tags"><span class="tag">Swim · Bike · Run</span><span class="tag">Ages 4+</span><span class="tag">Competitive</span><span class="tag">$10 / session</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<div class="wdiv"><svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0 60 C360 0 1080 60 1440 0 L1440 0 L0 0 Z" fill="var(--navy)"/></svg></div>
+<section id="achievements">
+  <div class="container">
+    <div class="ach-layout">
+      <div class="rl">
+        <div class="stag">Track Record</div>
+        <h2 class="sh2">Real Results,<br><em>Real Champions</em></h2>
+        <p class="ach-lead">KAS athletes don't just train — they compete and win. Our academy has a proud record of producing competitive swimmers and triathletes who represent Zimbabwe at regional and continental level.</p>
+        <div class="bh">
+          <div class="bh-icon"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg></div>
+          <div><strong>Bonaqua Africa Triathlon Cup — Troutbeck, 2025</strong><span>18 KAS athletes competed. 5 medal winners: Anodiwa Mushamba, Shailyn Museka, Munenyasha Vambe, Ethan Chinamasa &amp; Jayden Mverechena.</span></div>
+        </div>
+        <div class="bh">
+          <div class="bh-icon"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg></div>
+          <div><strong>SA Youth Triathlon Championships — Ebotse</strong><span>KAS athletes qualified to represent Triathlon Zimbabwe at the SA Youth Championships.</span></div>
+        </div>
+        <div class="bh">
+          <div class="bh-icon"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/></svg></div>
+          <div><strong>Open Water Achievement</strong><span>Youngest swimmers Yemurai Chiwaka &amp; Mudiwa Chinamasa completed the 250m open water course at the Africa Triathlon Cup.</span></div>
+        </div>
+      </div>
+      <div class="stats-grid rr">
+        <div class="scard wide">
+          <div class="ico"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <div><div class="snum">Kids &amp; Adults</div><div class="slbl">Programs for all ages — from 4 years up, beginners to competitive athletes</div></div>
+        </div>
+        <div class="scard">
+          <div class="ico"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg></div>
+          <div class="snum">5</div><div class="slbl">Medal winners at Bonaqua Africa Triathlon Cup 2025</div>
+        </div>
+        <div class="scard">
+          <div class="ico"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <div class="snum">18</div><div class="slbl">Athletes at Bonaqua Africa Triathlon Cup 2025</div>
+        </div>
+        <div class="scard">
+          <div class="ico"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg></div>
+          <div class="snum">Zim</div><div class="slbl">National representation at SA Youth Championships</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="gal-intro r">
+    <div class="stag">In the Water</div>
+    <h2 class="sh2">KAS <em>In Action</em></h2>
+    <p class="ssub" style="margin:0 auto;">Real students. Real training. Real results.</p>
+  </div>
+  <div class="gal-grid">
+    <div class="gi"><img src="https://images.unsplash.com/photo-1519315901367-f34ff9154487?w=800&q=80&auto=format&fit=crop" alt="KAS pool training" loading="lazy"><div class="gilbl"><span>Pool Training</span></div></div>
+    <div class="gi"><img src="https://images.unsplash.com/photo-1560090995-01632a28895b?w=600&q=80&auto=format&fit=crop" alt="Competitive swimming" loading="lazy"><div class="gilbl"><span>Competitive</span></div></div>
+    <div class="gi"><img src="kid.jpg" alt="Kids lessons" loading="lazy"><div class="gilbl"><span>Kids Lessons</span></div></div>
+    <div class="gi"><img src="https://images.unsplash.com/photo-1530549387789-4c1017266635?w=600&q=80&auto=format&fit=crop" alt="Triathlon training" loading="lazy"><div class="gilbl"><span>Triathlon</span></div></div>
+    <div class="gi"><img src="squads.webp" alt="Squad training" loading="lazy"><div class="gilbl"><span>Squad Training</span></div></div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<div class="wdiv" style="background:var(--navy);"><svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0 30 C400 60 1040 0 1440 30 L1440 60 L0 60 Z" fill="var(--navy)"/></svg></div>
+<section id="pricing">
+  <div class="container">
+    <div class="shead centered r">
+      <div class="stag">Schedule &amp; Pricing</div>
+      <h2 class="sh2">Simple, <em>Clear</em> Rates</h2>
+      <p class="ssub">Flexible options to suit your schedule and budget. Sibling discounts available.</p>
+    </div>
+    <div class="price-grid">
+      <div class="glass-card rl">
+        <div class="card-h3">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+          Swimming Lessons Schedule
+        </div>
+        <div class="day-row"><span class="dd"></span><span class="dn">Fridays</span><div class="dt">1:00 PM – 4:00 PM</div></div>
+        <div class="day-row"><span class="dd"></span><span class="dn">Saturdays</span><div class="dt">11:00 AM – 4:00 PM</div></div>
+        <div class="day-row"><span class="dd"></span><span class="dn">Sundays</span><div class="dt">11:00 AM – 4:00 PM</div></div>
+        <div class="card-h3" style="margin-top:1.4rem;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+          Triathlon Training
+        </div>
+        <div class="day-row"><span class="dd" style="background:var(--sky);"></span><span class="dn">Classes &amp; Lessons</span><div class="dt">Ages 4 &amp; above</div></div>
+        <div class="day-row"><span class="dd" style="background:var(--sky);"></span><span class="dn">Activities Include</span><div class="dt">Swim · Cycle · Run</div></div>
+        <div class="snote">
+          <strong style="color:var(--cyan);">Venue:</strong> 108 Greendale Avenue, Greendale, Harare<br>
+          <span style="font-size:.76rem;color:rgba(255,255,255,.38);">⚠ Booking is essential — spots fill quickly</span>
+        </div>
+      </div>
+      <div class="glass-card price-card rr">
+        <span class="price-eyebrow">Swimming Lessons — Pricing</span>
+        <div class="price-big">$7</div>
+        <div class="price-sub">per hour</div>
+        <div class="price-or">or</div>
+        <div class="price-big2">$60</div>
+        <div class="price-sub">once-off · 12 lessons</div>
+        <div class="sibling-note">🎉 <strong>Sibling Discounts Available</strong> — ask us when booking</div>
+        <ul class="price-feats">
+          <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Kids &amp; Adults — Beginner to Advanced</li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Private &amp; Group lessons available</li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Triathlon training: $10 per session</li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Sibling discounts available</li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Professional coaching every session</li>
+        </ul>
+        <a href="#contact" class="btn-primary" style="width:100%;justify-content:center;border:none;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          Book a Spot
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATION -->
+<div class="wdiv"><svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0 60 C500 0 940 60 1440 0 L1440 0 L0 0 Z" fill="var(--ink)"/></svg></div>
+<section id="location">
+  <div class="container">
+    <div class="shead r">
+      <div class="stag">Find Us</div>
+      <h2 class="sh2">Come <em>Dive In</em></h2>
+      <p class="ssub">We're in Greendale, Harare — easy to find, welcoming to all.</p>
+    </div>
+    <div class="loc-grid">
+      <div class="map-wrap rl">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3797.3!2d31.0955!3d-17.8059!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1931a5c2c7a3f1e5%3A0x1234!2s108+Greendale+Ave%2C+Greendale%2C+Harare!5e0!3m2!1sen!2szw!4v1" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+      <div class="loc-cards rr">
+        <div class="lcard">
+          <div class="licon"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><div class="llbl">Address</div><div class="lval">108 Greendale Avenue, Greendale, Harare, Zimbabwe</div></div>
+        </div>
+        <div class="lcard">
+          <div class="licon"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.99 12 19.79 19.79 0 0 1 1.97 3.4 2 2 0 0 1 3.96 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+          <div><div class="llbl">Phone</div><div class="lval"><a href="tel:+263775477177">+263 77 547 7177</a><br><a href="tel:+263784769248">+263 78 476 9248</a></div></div>
+        </div>
+        <div class="lcard">
+          <div class="licon"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <div><div class="llbl">Lesson Times</div><div class="lval">Fridays: 1:00 PM – 4:00 PM<br>Saturdays &amp; Sundays: 11:00 AM – 4:00 PM</div></div>
+        </div>
+        <div class="lcard">
+          <div class="licon"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><path d="M12 12a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg></div>
+          <div><div class="llbl">Social Media</div><div class="lval"><a href="https://instagram.com/kas.swim_academy" target="_blank">@kas.swim_academy</a><br><a href="https://facebook.com/KasAcademy" target="_blank">KasAcademy on Facebook</a></div></div>
+        </div>
+        <a href="https://wa.me/263775477177" target="_blank" style="display:flex;align-items:center;gap:.65rem;background:#1da851;color:#fff;font-family:'Syne',sans-serif;font-weight:700;padding:.82rem 1.3rem;border-radius:var(--radsm);font-size:.84rem;transition:transform .2s,box-shadow .2s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 22px rgba(29,168,81,.4)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+          <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          WhatsApp Us to Book
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div class="wdiv" style="background:var(--ink);"><svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0 0 C480 60 960 0 1440 60 L1440 60 L0 60 Z" fill="var(--ink)"/></svg></div>
+<section id="contact">
+  <div class="container">
+    <div class="shead centered r">
+      <div class="stag">Book a Spot</div>
+      <h2 class="sh2">Ready to <em>Dive In?</em></h2>
+      <p class="ssub">Fill in your details and we'll confirm your booking. Remember — booking is essential to secure your spot.</p>
+    </div>
+    <div class="contact-grid" id="contactGrid">
+      <div class="rl">
+        <div class="reach-row">
+          <a href="https://wa.me/263775477177" target="_blank" class="reach-btn rwa">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <div><div class="reach-lbl">WhatsApp</div><div class="reach-sub">+263 77 547 7177</div></div>
+          </a>
+          <a href="https://wa.me/263784769248" target="_blank" class="reach-btn rwa">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <div><div class="reach-lbl">WhatsApp</div><div class="reach-sub">+263 78 476 9248</div></div>
+          </a>
+        </div>
+        <div class="form-card">
+          <div class="form-title">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" x2="11" y1="2" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            Send Us Your Details
+          </div>
+          <div class="frow">
+            <div class="fg"><label class="fl">First Name *</label><input type="text" class="fi" id="fn" placeholder="First name"></div>
+            <div class="fg"><label class="fl">Last Name</label><input type="text" class="fi" id="ln" placeholder="Last name"></div>
+          </div>
+          <div class="frow">
+            <div class="fg"><label class="fl">Phone / WhatsApp *</label><input type="tel" class="fi" id="ph" placeholder="+263..."></div>
+            <div class="fg"><label class="fl">Child's Age (if applicable)</label><input type="text" class="fi" id="age" placeholder="e.g. 8 years"></div>
+          </div>
+          <div class="fg">
+            <label class="fl">Program of Interest</label>
+            <select class="fsel" id="prog">
+              <option value="" disabled selected>Choose a program...</option>
+              <option>Kids Swimming Lessons</option>
+              <option>Adult Swimming Lessons</option>
+              <option>Triathlon Training</option>
+              <option>Private Lessons</option>
+              <option>Group Lessons</option>
+              <option>General Enquiry</option>
+            </select>
+          </div>
+          <div class="fg">
+            <label class="fl">Preferred Day</label>
+            <select class="fsel" id="day">
+              <option value="" disabled selected>Choose a day...</option>
+              <option>Friday — 1:00 PM to 4:00 PM</option>
+              <option>Saturday — 11:00 AM to 4:00 PM</option>
+              <option>Sunday — 11:00 AM to 4:00 PM</option>
+              <option>Flexible</option>
+            </select>
+          </div>
+          <div class="fg">
+            <label class="fl">Message / Notes</label>
+            <textarea class="fta" id="msg" placeholder="Tell us about experience level, any questions, or anything we should know..."></textarea>
+          </div>
+          <div class="form-btns">
+            <button class="btn-wa" onclick="sendWA()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              Send via WhatsApp
+            </button>
+          </div>
+          <p class="form-hint">Tapping the button above opens a pre-filled WhatsApp message. Booking is essential to secure your spot.</p>
+        </div>
+      </div>
+      <div class="rr" style="display:flex;flex-direction:column;gap:1.2rem;">
+        <div class="cinfo-stack">
+          <div class="crow">
+            <div class="cico"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div><div class="clbl">Address</div><div class="cval">108 Greendale Avenue, Greendale, Harare, Zimbabwe</div></div>
+          </div>
+          <div class="crow">
+            <div class="cico"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.99 12 19.79 19.79 0 0 1 1.97 3.4 2 2 0 0 1 3.96 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+            <div><div class="clbl">Phone</div><div class="cval"><a href="tel:+263775477177">+263 77 547 7177</a><br><a href="tel:+263784769248">+263 78 476 9248</a></div></div>
+          </div>
+          <div class="crow">
+            <div class="cico"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div><div class="clbl">Lesson Times</div><div class="cval">Fri: 1pm–4pm · Sat &amp; Sun: 11am–4pm</div></div>
+          </div>
+          <div class="crow">
+            <div class="cico"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><path d="M12 12a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg></div>
+            <div><div class="clbl">Instagram</div><div class="cval"><a href="https://instagram.com/kas.swim_academy" target="_blank">@kas.swim_academy</a></div></div>
+          </div>
+          <div class="crow">
+            <div class="cico"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></div>
+            <div><div class="clbl">Facebook</div><div class="cval"><a href="https://facebook.com/KasAcademy" target="_blank">KasAcademy</a></div></div>
+          </div>
+        </div>
+        <div style="background:rgba(0,196,232,.06);border:1px solid var(--border);border-radius:var(--rad);padding:1.2rem 1.4rem;">
+          <div style="font-family:'Syne',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);margin-bottom:.65rem;">⚠ Booking Is Essential</div>
+          <p style="font-size:.82rem;color:var(--text);line-height:1.7;">Spots fill quickly — especially for weekend sessions. Contact us via WhatsApp or fill in the form to secure your place before it's gone.</p>
+        </div>
+      </div>
+    </div>
+    <div class="form-success" id="contactSuccess">
+      <div class="sicon"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <h3 class="sh">Message Sent!</h3>
+      <p class="sp" id="successMsg">Your message is on its way. We'll confirm your booking shortly.</p>
+      <button onclick="resetForm()" class="btn-primary" style="margin:2rem auto 0;display:inline-flex;border:none;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
+        Send Another
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="fbrand"><div class="nav-logo-box" style="width:32px;height:32px;font-size:.8rem;">KAS</div>KAS <span>Swim</span> Academy</div>
+      <div class="ftagline">"Learn · Train · Compete" — KAS Swim Academy, Greendale, Harare</div>
+    </div>
+    <div class="fcol">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Programs</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#location">Location</a></li>
+      </ul>
+    </div>
+    <div class="fcol">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:+263775477177">+263 77 547 7177</a></li>
+        <li><a href="tel:+263784769248">+263 78 476 9248</a></li>
+        <li><a href="https://instagram.com/kas.swim_academy" target="_blank">@kas.swim_academy</a></li>
+        <li><a href="https://wa.me/263775477177" target="_blank">WhatsApp Us</a></li>
+        <li><a href="#location">108 Greendale Ave, Harare</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="fbot">
+    <span>&copy; 2026 KAS Swim Academy · Greendale, Harare, Zimbabwe. All rights reserved.</span>
+    <span>Designed by <a href="#" target="_blank">TendoWebsites</a></span>
+  </div>
+</footer>
+
+<script>
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>55));
+function toggleMenu(){
+  document.getElementById('menuBtn').classList.toggle('open');
+  document.getElementById('mobNav').classList.toggle('open');
+  document.body.style.overflow=document.getElementById('mobNav').classList.contains('open')?'hidden':'';
+}
+function closeMenu(){
+  document.getElementById('menuBtn').classList.remove('open');
+  document.getElementById('mobNav').classList.remove('open');
+  document.body.style.overflow='';
+}
+(function(){
+  const els=document.querySelectorAll('.r,.rl,.rr');
+  const ob=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('on');ob.unobserve(x.target);}});},{threshold:.07});
+  els.forEach(el=>ob.observe(el));
+})();
+function getData(){return{fn:document.getElementById('fn').value.trim(),ln:document.getElementById('ln').value.trim(),ph:document.getElementById('ph').value.trim(),age:document.getElementById('age').value.trim(),prog:document.getElementById('prog').value,day:document.getElementById('day').value,msg:document.getElementById('msg').value.trim()};}
+function validate(){const d=getData();if(!d.fn){alert('Please enter your first name.');document.getElementById('fn').focus();return false;}if(!d.ph){alert('Please enter your phone number.');document.getElementById('ph').focus();return false;}return true;}
+function buildMsg(d){const name=d.fn+(d.ln?' '+d.ln:'');let m=`Hi KAS Swim Academy! 👋\n\n*Name:* ${name}\n*Phone:* ${d.ph}\n`;if(d.age)m+=`*Child's Age:* ${d.age}\n`;if(d.prog)m+=`*Program:* ${d.prog}\n`;if(d.day)m+=`*Preferred Day:* ${d.day}\n`;if(d.msg)m+=`\n*Message:*\n${d.msg}`;return m;}
+function sendWA(){if(!validate())return;const d=getData();window.open(`https://wa.me/263775477177?text=${encodeURIComponent(buildMsg(d))}`,'_blank');showSuccess(d.fn);}
+function showSuccess(name){document.getElementById('contactGrid').style.display='none';document.getElementById('contactSuccess').style.display='block';document.getElementById('successMsg').textContent=`Thank you, ${name}! Your WhatsApp message is ready — just hit send. We'll confirm your booking shortly.`;document.getElementById('contact').scrollIntoView({behavior:'smooth',block:'start'});}
+function resetForm(){document.getElementById('contactGrid').style.display='';document.getElementById('contactSuccess').style.display='none';['fn','ln','ph','age','msg'].forEach(id=>document.getElementById(id).value='');document.getElementById('prog').selectedIndex=0;document.getElementById('day').selectedIndex=0;}
+</script>
+</body>
+</html>

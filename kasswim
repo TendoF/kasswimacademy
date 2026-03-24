@@ -1,0 +1,1842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KAS Swim Academy — Elite Aquatic Training | Harare, Zimbabwe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════
+   ROOT & RESET
+══════════════════════════════════════════ */
+:root {
+  --ink:      #050d18;
+  --navy:     #071828;
+  --deep:     #0a2540;
+  --ocean:    #0e4a7a;
+  --blue:     #1166cc;
+  --sky:      #1a8fe3;
+  --cyan:     #00c4e8;
+  --ice:      #e0f7ff;
+  --white:    #ffffff;
+  --gold:     #f0b429;
+  --text:     rgba(255,255,255,0.65);
+  --text-med: rgba(255,255,255,0.82);
+  --border:   rgba(0,196,232,0.14);
+  --border-b: rgba(255,255,255,0.07);
+  --glass:    rgba(255,255,255,0.04);
+  --rad:      20px;
+  --rad-sm:   12px;
+  --rad-lg:   28px;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; font-size:16px; overflow-x:hidden; }
+body {
+  font-family:'DM Sans', sans-serif;
+  background:var(--ink);
+  color:var(--white);
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+img { display:block; max-width:100%; height:auto; }
+a { text-decoration:none; color:inherit; }
+button { font-family:inherit; }
+
+/* ══════════════════════════════════════════
+   SCROLLBAR
+══════════════════════════════════════════ */
+::-webkit-scrollbar { width:5px; }
+::-webkit-scrollbar-track { background:var(--ink); }
+::-webkit-scrollbar-thumb { background:var(--cyan); border-radius:10px; }
+
+/* ══════════════════════════════════════════
+   NOISE OVERLAY
+══════════════════════════════════════════ */
+body::before {
+  content:'';
+  position:fixed; inset:0; z-index:0; pointer-events:none;
+  opacity:.025;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:200px;
+}
+
+/* ══════════════════════════════════════════
+   NAVBAR
+══════════════════════════════════════════ */
+#navbar {
+  position:fixed; top:0; left:0; right:0; z-index:900;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:1.1rem 5%;
+  background:rgba(5,13,24,0);
+  transition:padding .4s ease, background .4s ease, border .4s ease;
+}
+#navbar.scrolled {
+  padding:.75rem 5%;
+  background:rgba(5,13,24,0.94);
+  border-bottom:1px solid var(--border);
+  backdrop-filter:blur(20px);
+}
+.nav-logo {
+  display:flex; align-items:center; gap:.7rem;
+  font-family:'Syne', sans-serif; font-weight:800; font-size:1.35rem;
+  letter-spacing:-.02em;
+}
+.nav-logo-mark {
+  width:40px; height:40px; border-radius:10px;
+  background:linear-gradient(135deg, var(--blue), var(--cyan));
+  display:flex; align-items:center; justify-content:center;
+  font-weight:800; font-size:1rem; color:var(--ink);
+  box-shadow:0 4px 16px rgba(0,196,232,0.35);
+  flex-shrink:0;
+}
+.nav-logo span { color:var(--cyan); }
+.nav-links {
+  display:flex; align-items:center; gap:2.4rem; list-style:none;
+}
+.nav-links a {
+  font-family:'Syne', sans-serif; font-size:.8rem; font-weight:600;
+  letter-spacing:.1em; text-transform:uppercase;
+  color:rgba(255,255,255,0.6); transition:color .2s;
+}
+.nav-links a:hover { color:var(--cyan); }
+.nav-cta {
+  background:linear-gradient(135deg, var(--blue), var(--cyan)) !important;
+  color:var(--ink) !important;
+  padding:.55rem 1.5rem; border-radius:50px;
+  box-shadow:0 4px 20px rgba(0,196,232,0.3);
+  transition:box-shadow .2s, transform .2s !important;
+}
+.nav-cta:hover {
+  box-shadow:0 8px 36px rgba(0,196,232,0.55) !important;
+  transform:translateY(-1px) !important;
+  color:var(--ink) !important;
+}
+.hamburger {
+  display:none; flex-direction:column; gap:5px;
+  cursor:pointer; background:none; border:none; padding:.4rem;
+}
+.hamburger span {
+  display:block; width:24px; height:2px;
+  background:var(--cyan); border-radius:2px;
+  transition:.3s ease;
+}
+.hamburger.open span:nth-child(1) { transform:rotate(45deg) translate(5px,5px); }
+.hamburger.open span:nth-child(2) { opacity:0; width:0; }
+.hamburger.open span:nth-child(3) { transform:rotate(-45deg) translate(5px,-5px); }
+
+.mobile-nav {
+  display:none; position:fixed;
+  top:0; left:0; right:0; bottom:0; z-index:899;
+  background:rgba(5,13,24,0.98);
+  flex-direction:column; align-items:center; justify-content:center;
+  gap:2rem;
+  backdrop-filter:blur(20px);
+  padding:5rem 5%;
+}
+.mobile-nav.open { display:flex; }
+.mobile-nav a {
+  font-family:'Syne', sans-serif; font-size:1.6rem; font-weight:700;
+  color:rgba(255,255,255,0.7); letter-spacing:.04em;
+  transition:color .2s, transform .2s;
+}
+.mobile-nav a:hover { color:var(--cyan); transform:translateX(8px); }
+.mobile-nav-close {
+  position:absolute; top:1.5rem; right:5%;
+  background:none; border:none; cursor:pointer;
+  color:var(--cyan); font-size:1.5rem; padding:.5rem;
+}
+
+/* ══════════════════════════════════════════
+   HERO
+══════════════════════════════════════════ */
+#home {
+  position:relative; min-height:100vh;
+  display:flex; align-items:center;
+  overflow:hidden; padding:6rem 5% 4rem;
+  background: radial-gradient(ellipse 80% 60% at 60% 40%, #0e2e55 0%, var(--ink) 70%);
+}
+.hero-bg-img {
+  position:absolute; inset:0; z-index:0;
+  background:url('https://images.unsplash.com/photo-1530549387789-4c1017266635?w=1800&q=80&auto=format&fit=crop') center/cover no-repeat;
+  opacity:.12;
+}
+.hero-bg-img::after {
+  content:''; position:absolute; inset:0;
+  background: linear-gradient(to right, var(--ink) 0%, transparent 55%, var(--ink) 100%),
+              linear-gradient(to top, var(--ink) 0%, transparent 60%);
+}
+/* animated wave lines */
+.hero-lines {
+  position:absolute; inset:0; z-index:1; pointer-events:none; overflow:hidden;
+}
+.hero-lines svg {
+  position:absolute; bottom:0; left:0; width:100%; opacity:.18;
+}
+.hero-glow {
+  position:absolute; top:10%; right:5%; z-index:1; pointer-events:none;
+  width:clamp(300px,45vw,700px); height:clamp(300px,45vw,700px);
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(0,196,232,0.12) 0%, transparent 65%);
+  animation:glowFloat 7s ease-in-out infinite;
+}
+@keyframes glowFloat {
+  0%,100%{transform:translate(0,0) scale(1);}
+  50%{transform:translate(-20px,15px) scale(1.06);}
+}
+.hero-inner {
+  position:relative; z-index:2;
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:clamp(2rem,5vw,5rem); align-items:center;
+  max-width:1200px; width:100%; margin:0 auto;
+}
+.hero-text {}
+.hero-badge {
+  display:inline-flex; align-items:center; gap:.5rem;
+  font-family:'Syne',sans-serif; font-size:.68rem; font-weight:700;
+  letter-spacing:.2em; text-transform:uppercase; color:var(--cyan);
+  border:1px solid rgba(0,196,232,0.35); padding:.35rem 1rem;
+  border-radius:50px; margin-bottom:1.5rem;
+  animation:fadeUp .8s ease both;
+}
+.hero-h1 {
+  font-family:'Instrument Serif', serif;
+  font-size:clamp(2.5rem, 5.5vw, 5rem);
+  font-weight:400; line-height:1.05;
+  margin-bottom:1.2rem;
+  animation:fadeUp .8s .1s ease both;
+}
+.hero-h1 .accent { color:var(--cyan); font-style:italic; }
+.hero-h1 .block {
+  display:block; font-size:.55em; font-family:'Syne',sans-serif;
+  font-weight:700; letter-spacing:.08em; color:rgba(255,255,255,.5);
+  font-style:normal; margin-bottom:.3rem; text-transform:uppercase;
+}
+.hero-p {
+  font-size:clamp(.9rem,1.5vw,1.05rem); color:var(--text);
+  line-height:1.8; max-width:500px; margin-bottom:2.2rem;
+  animation:fadeUp .8s .2s ease both;
+}
+.hero-btns {
+  display:flex; gap:1rem; flex-wrap:wrap;
+  animation:fadeUp .8s .3s ease both;
+}
+.btn-primary {
+  display:inline-flex; align-items:center; gap:.55rem;
+  background:linear-gradient(135deg, var(--blue), var(--cyan));
+  color:var(--ink); font-family:'Syne',sans-serif;
+  font-weight:700; font-size:.88rem; letter-spacing:.04em;
+  padding:.9rem 2.2rem; border-radius:50px; border:none; cursor:pointer;
+  box-shadow:0 6px 30px rgba(0,196,232,0.35);
+  transition:transform .2s, box-shadow .2s;
+}
+.btn-primary:hover { transform:translateY(-2px); box-shadow:0 10px 44px rgba(0,196,232,0.55); }
+.btn-ghost {
+  display:inline-flex; align-items:center; gap:.55rem;
+  border:1.5px solid rgba(0,196,232,0.4); color:var(--cyan);
+  font-family:'Syne',sans-serif; font-weight:700; font-size:.88rem;
+  letter-spacing:.04em; padding:.9rem 2.2rem; border-radius:50px;
+  transition:background .2s, border-color .2s;
+  cursor:pointer; background:none;
+}
+.btn-ghost:hover { background:rgba(0,196,232,0.1); border-color:rgba(0,196,232,0.7); }
+/* Hero image card */
+.hero-img-col {
+  position:relative;
+  animation:fadeRight .9s .15s ease both;
+}
+.hero-img-frame {
+  border-radius:24px; overflow:hidden;
+  aspect-ratio:4/5;
+  box-shadow:0 40px 100px rgba(0,0,0,0.6), 0 0 0 1px rgba(0,196,232,0.12);
+  position:relative;
+}
+.hero-img-frame img { width:100%; height:100%; object-fit:cover; display:block; }
+.hero-img-frame::after {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(to top, rgba(5,13,24,.6) 0%, transparent 50%);
+}
+.hero-img-tag {
+  position:absolute; bottom:1.6rem; left:1.6rem; z-index:2;
+  display:flex; align-items:center; gap:.7rem;
+  background:rgba(5,13,24,0.85); border:1px solid rgba(0,196,232,0.2);
+  backdrop-filter:blur(12px); border-radius:50px;
+  padding:.55rem 1.2rem .55rem .55rem;
+}
+.hero-img-tag-dot {
+  width:8px; height:8px; border-radius:50%; background:var(--cyan);
+  animation:pulse 2s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100%{box-shadow:0 0 0 0 rgba(0,196,232,.6);} 50%{box-shadow:0 0 0 6px rgba(0,196,232,0);} }
+.hero-img-tag span { font-size:.78rem; font-weight:600; color:rgba(255,255,255,0.85); }
+.hero-stat-float {
+  position:absolute; top:-1.4rem; left:-1.4rem;
+  background:var(--deep); border:1px solid rgba(0,196,232,0.2);
+  backdrop-filter:blur(12px); border-radius:18px;
+  padding:1.1rem 1.4rem;
+  box-shadow:0 16px 48px rgba(0,0,0,0.4);
+  animation:statFloat 5s ease-in-out infinite;
+  min-width:130px;
+}
+@keyframes statFloat { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-8px);} }
+.hero-stat-num {
+  font-family:'Instrument Serif',serif; font-size:2.2rem;
+  background:linear-gradient(135deg,var(--sky),var(--cyan));
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  background-clip:text; line-height:1;
+}
+.hero-stat-lbl { font-size:.72rem; color:var(--text); margin-top:.3rem; line-height:1.4; }
+.hero-wave { position:absolute; bottom:0; left:0; width:100%; line-height:0; z-index:3; }
+.hero-wave svg { display:block; width:100%; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(32px);} to{opacity:1;transform:translateY(0);} }
+@keyframes fadeRight { from{opacity:0;transform:translateX(40px);} to{opacity:1;transform:translateX(0);} }
+
+/* ══════════════════════════════════════════
+   MARQUEE / TICKER
+══════════════════════════════════════════ */
+.ticker-wrap {
+  background:linear-gradient(90deg, var(--blue), var(--cyan), var(--blue));
+  background-size:200% 100%;
+  animation:tickerBg 4s linear infinite;
+  padding:.7rem 0; overflow:hidden; position:relative; z-index:5;
+}
+@keyframes tickerBg { 0%{background-position:0%} 100%{background-position:200%} }
+.ticker-inner {
+  display:flex; gap:0; white-space:nowrap;
+  animation:tickerScroll 28s linear infinite;
+}
+.ticker-inner:hover { animation-play-state:paused; }
+@keyframes tickerScroll { 0%{transform:translateX(0);} 100%{transform:translateX(-50%);} }
+.ticker-item {
+  display:inline-flex; align-items:center; gap:.6rem;
+  padding:0 2rem; font-family:'Syne',sans-serif;
+  font-size:.75rem; font-weight:700; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--ink);
+}
+.ticker-dot { width:5px; height:5px; border-radius:50%; background:var(--ink); opacity:.5; flex-shrink:0; }
+
+/* ══════════════════════════════════════════
+   SHARED SECTION STYLES
+══════════════════════════════════════════ */
+section { padding:clamp(4rem,8vw,7rem) 5%; width:100%; position:relative; z-index:1; }
+.container { max-width:1200px; margin:0 auto; width:100%; }
+.section-tag {
+  display:inline-block; font-family:'Syne',sans-serif;
+  font-size:.68rem; font-weight:700; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--cyan); margin-bottom:.6rem;
+}
+.section-h2 {
+  font-family:'Instrument Serif', serif;
+  font-size:clamp(2rem,4vw,3.2rem); font-weight:400;
+  color:var(--white); line-height:1.12; margin-bottom:.9rem;
+}
+.section-h2 em { color:var(--cyan); font-style:italic; }
+.section-sub {
+  color:var(--text); line-height:1.82;
+  font-size:clamp(.88rem,1.5vw,1rem); max-width:560px;
+}
+.section-head { margin-bottom:3.5rem; }
+.centered { text-align:center; }
+.centered .section-sub { margin:0 auto; }
+/* dividers */
+.wdiv { line-height:0; overflow:hidden; width:100%; position:relative; z-index:2; }
+.wdiv svg { display:block; width:100%; }
+
+/* ══════════════════════════════════════════
+   ABOUT
+══════════════════════════════════════════ */
+#about {
+  background:linear-gradient(170deg, var(--ink) 0%, var(--navy) 100%);
+}
+.about-grid {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:clamp(2rem,5vw,5rem); align-items:center;
+}
+.about-img-col { position:relative; padding-bottom:2rem; }
+.about-img-stack { position:relative; }
+.about-img-main {
+  border-radius:var(--rad-lg); overflow:hidden;
+  aspect-ratio:4/5;
+  box-shadow:0 40px 100px rgba(0,0,0,.55), 0 0 0 1px var(--border);
+  position:relative;
+}
+.about-img-main img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .5s ease; }
+.about-img-main:hover img { transform:scale(1.04); }
+.about-img-secondary {
+  position:absolute; bottom:-1.8rem; right:-1.8rem;
+  width:55%; border-radius:var(--rad); overflow:hidden;
+  box-shadow:0 20px 60px rgba(0,0,0,.55), 0 0 0 3px rgba(0,196,232,.1);
+  aspect-ratio:3/2;
+}
+.about-img-secondary img { width:100%; height:100%; object-fit:cover; display:block; }
+.about-badge {
+  position:absolute; top:-1.2rem; left:-1.2rem;
+  background:linear-gradient(135deg, var(--gold), #f5c842);
+  color:#1a0e00; font-weight:700; font-size:.78rem;
+  padding:1rem 1.3rem; border-radius:var(--rad-sm);
+  box-shadow:0 8px 32px rgba(240,180,41,.4);
+  line-height:1.5; z-index:5;
+}
+.about-badge strong { display:block; font-family:'Syne',sans-serif; font-size:1.4rem; }
+.about-text p {
+  color:var(--text); line-height:1.9; margin-bottom:1.2rem;
+  font-size:clamp(.88rem,1.5vw,1rem);
+}
+.about-highlights { display:flex; flex-direction:column; gap:.75rem; margin:1.8rem 0; }
+.about-hl {
+  display:flex; align-items:center; gap:.85rem;
+  padding:1rem 1.2rem; border-radius:var(--rad-sm);
+  background:rgba(0,196,232,.05); border:1px solid var(--border);
+  transition:background .2s, transform .2s;
+}
+.about-hl:hover { background:rgba(0,196,232,.1); transform:translateX(5px); }
+.about-hl-icon {
+  width:36px; height:36px; border-radius:10px; flex-shrink:0;
+  background:rgba(0,196,232,.1); border:1px solid var(--border);
+  display:flex; align-items:center; justify-content:center;
+  color:var(--cyan);
+}
+.about-hl-text strong { display:block; font-size:.88rem; color:var(--white); margin-bottom:.1rem; }
+.about-hl-text span { font-size:.78rem; color:var(--text); }
+
+/* ══════════════════════════════════════════
+   SERVICES
+══════════════════════════════════════════ */
+#services { background:var(--navy); }
+.services-grid {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr));
+  gap:1.4rem;
+}
+.svc-card {
+  background:var(--glass); border:1px solid var(--border);
+  border-radius:var(--rad-lg); overflow:hidden;
+  transition:transform .3s, box-shadow .3s, border-color .3s;
+  position:relative;
+}
+.svc-card:hover {
+  transform:translateY(-8px);
+  box-shadow:0 28px 72px rgba(0,0,0,.45);
+  border-color:rgba(0,196,232,.35);
+}
+.svc-card-img {
+  height:200px; overflow:hidden; position:relative;
+}
+.svc-card-img img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .5s ease; }
+.svc-card:hover .svc-card-img img { transform:scale(1.06); }
+.svc-card-img::after {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(to top, rgba(7,24,40,.8) 0%, transparent 55%);
+}
+.svc-card-body { padding:1.6rem; }
+.svc-num {
+  font-family:'Instrument Serif',serif; font-size:2.5rem; opacity:.1;
+  position:absolute; top:1rem; right:1.2rem; line-height:1;
+  color:var(--cyan); pointer-events:none;
+}
+.svc-icon {
+  width:44px; height:44px; border-radius:12px;
+  background:rgba(0,196,232,.1); border:1px solid var(--border);
+  display:flex; align-items:center; justify-content:center;
+  color:var(--cyan); margin-bottom:1rem;
+}
+.svc-title {
+  font-family:'Syne',sans-serif; font-size:1.05rem; font-weight:700;
+  margin-bottom:.6rem; color:var(--white);
+}
+.svc-desc {
+  font-size:.86rem; color:var(--text); line-height:1.75; margin-bottom:1rem;
+}
+.svc-tags { display:flex; flex-wrap:wrap; gap:.35rem; }
+.stag {
+  font-size:.65rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+  padding:.25rem .65rem; border-radius:50px;
+  background:rgba(0,196,232,.08); color:var(--cyan);
+  border:1px solid rgba(0,196,232,.18);
+}
+/* featured service card */
+.svc-card.featured {
+  grid-column:span 2;
+  display:grid; grid-template-columns:1fr 1fr;
+}
+.svc-card.featured .svc-card-img { height:auto; min-height:260px; }
+
+/* ══════════════════════════════════════════
+   WHY KAS
+══════════════════════════════════════════ */
+#benefits {
+  background:linear-gradient(170deg, var(--ink) 0%, rgba(14,74,122,0.12) 100%);
+  overflow:hidden; position:relative;
+}
+#benefits::before {
+  content:''; position:absolute; bottom:-200px; left:-200px;
+  width:600px; height:600px; border-radius:50%;
+  background:radial-gradient(circle, rgba(0,196,232,.05), transparent 65%);
+  pointer-events:none;
+}
+.benefits-layout {
+  display:grid; grid-template-columns:44% 1fr;
+  gap:clamp(2rem,5vw,5rem); align-items:center;
+}
+.benefits-lead {
+  color:var(--text); line-height:1.85; font-size:clamp(.88rem,1.5vw,1rem);
+  margin-bottom:2rem;
+}
+.bh {
+  display:flex; align-items:flex-start; gap:1rem;
+  padding:1.2rem 1.4rem; border-radius:var(--rad-sm);
+  background:var(--glass); border:1px solid var(--border);
+  margin-bottom:.85rem;
+  transition:background .3s, transform .2s;
+}
+.bh:hover { background:rgba(0,196,232,.08); transform:translateX(5px); }
+.bh-icon {
+  width:42px; height:42px; flex-shrink:0; border-radius:12px;
+  background:rgba(0,196,232,.1); border:1px solid var(--border);
+  display:flex; align-items:center; justify-content:center; color:var(--cyan);
+}
+.bh-text strong { display:block; font-size:.9rem; margin-bottom:.25rem; color:var(--white); }
+.bh-text span { font-size:.82rem; color:var(--text); line-height:1.55; }
+.stats-grid { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+.stat-card {
+  background:var(--glass); border:1px solid var(--border);
+  border-radius:var(--rad); padding:1.8rem 1.4rem; text-align:center;
+  position:relative; overflow:hidden;
+  transition:transform .3s, background .3s;
+}
+.stat-card::after {
+  content:''; position:absolute; bottom:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg,var(--blue),var(--cyan));
+  transform:scaleX(0); transform-origin:center; transition:transform .3s;
+}
+.stat-card:hover { transform:translateY(-5px); background:rgba(0,196,232,.07); }
+.stat-card:hover::after { transform:scaleX(1); }
+.stat-card.wide { grid-column:1/-1; display:flex; align-items:center; gap:1.4rem; text-align:left; }
+.stat-card .icon {
+  width:52px; height:52px; border-radius:14px; flex-shrink:0;
+  background:rgba(0,196,232,.1); border:1px solid var(--border);
+  display:flex; align-items:center; justify-content:center; color:var(--cyan);
+  margin:0 auto 1rem;
+}
+.stat-card.wide .icon { margin:0; }
+.stat-num {
+  font-family:'Instrument Serif',serif; font-size:2.6rem; font-weight:400;
+  background:linear-gradient(135deg,var(--sky),var(--cyan));
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  background-clip:text; line-height:1; margin-bottom:.4rem;
+}
+.stat-lbl { font-size:.8rem; color:var(--text); line-height:1.5; }
+.stat-card.wide .stat-lbl { font-size:.86rem; }
+
+/* ══════════════════════════════════════════
+   GALLERY
+══════════════════════════════════════════ */
+#gallery { padding:0; background:var(--ink); overflow:hidden; }
+.gallery-intro { padding:clamp(3rem,6vw,5rem) 5% clamp(2rem,4vw,3rem); text-align:center; }
+.gallery-masonry {
+  display:grid;
+  grid-template-columns:1.5fr 1fr 1fr;
+  grid-template-rows:300px 300px;
+  gap:3px;
+}
+.g-item { overflow:hidden; position:relative; cursor:pointer; }
+.g-item img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .5s ease; filter:brightness(.85); }
+.g-item:hover img { transform:scale(1.06); filter:brightness(1); }
+.g-item::after {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(to top, rgba(5,13,24,.6) 0%, transparent 50%);
+}
+.g-item:first-child { grid-row:span 2; }
+.g-item-lbl {
+  position:absolute; bottom:1.2rem; left:1.4rem; z-index:2;
+  opacity:0; transform:translateY(6px); transition:.3s;
+}
+.g-item:hover .g-item-lbl { opacity:1; transform:translateY(0); }
+.g-item-lbl span {
+  font-family:'Syne',sans-serif; font-size:.68rem; font-weight:700;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--cyan);
+  background:rgba(5,13,24,.75); padding:.3rem .8rem; border-radius:50px;
+  border:1px solid rgba(0,196,232,.2);
+}
+
+/* ══════════════════════════════════════════
+   TENNIS
+══════════════════════════════════════════ */
+#tennis {
+  background:linear-gradient(160deg, var(--ink) 0%, #061a0e 100%);
+  position:relative; overflow:hidden;
+}
+#tennis::before {
+  content:''; position:absolute; inset:0;
+  background-image: repeating-linear-gradient(90deg, rgba(255,255,255,.013) 0,rgba(255,255,255,.013) 1px,transparent 1px,transparent 80px),
+                    repeating-linear-gradient(0deg, rgba(255,255,255,.013) 0,rgba(255,255,255,.013) 1px,transparent 1px,transparent 80px);
+  pointer-events:none;
+}
+.tennis-layout {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:clamp(2rem,5vw,5rem); align-items:center; position:relative; z-index:1;
+}
+.tennis-img-frame {
+  border-radius:var(--rad-lg); overflow:hidden; aspect-ratio:4/3;
+  box-shadow:0 28px 72px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.06);
+}
+.tennis-img-frame img { width:100%; height:100%; object-fit:cover; display:block; }
+.tennis-tag-color { color:#7edb7e !important; }
+.tennis-pills { display:flex; flex-wrap:wrap; gap:.5rem; margin:1.4rem 0 2rem; }
+.tennis-pill {
+  display:inline-flex; align-items:center; gap:.4rem;
+  background:rgba(100,210,80,.08); border:1px solid rgba(100,210,80,.2);
+  border-radius:50px; padding:.38rem .9rem;
+  font-size:.78rem; color:#7edb7e; font-weight:600;
+}
+.tennis-text p { color:var(--text); line-height:1.85; margin-bottom:1rem; font-size:clamp(.88rem,1.5vw,1rem); }
+
+/* ══════════════════════════════════════════
+   MERCH
+══════════════════════════════════════════ */
+#merch { background:var(--navy); }
+.merch-layout {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:clamp(2rem,5vw,4rem); align-items:center;
+}
+.merch-imgs { display:grid; grid-template-columns:1fr 1fr; gap:.75rem; }
+.merch-img {
+  border-radius:var(--rad); overflow:hidden;
+  position:relative; background:var(--deep);
+}
+.merch-img:first-child { grid-row:span 2; aspect-ratio:unset; min-height:380px; }
+.merch-img img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .5s ease; }
+.merch-img:hover img { transform:scale(1.04); }
+.merch-text p { color:var(--text); line-height:1.85; font-size:clamp(.88rem,1.5vw,1rem); margin-bottom:1rem; }
+.merch-feats { display:flex; flex-direction:column; gap:.6rem; margin:1.5rem 0 2rem; }
+.merch-feat {
+  display:flex; align-items:center; gap:.75rem;
+  font-size:.88rem; color:var(--text-med);
+}
+.merch-feat svg { color:var(--cyan); flex-shrink:0; width:16px; height:16px; }
+.merch-badge {
+  display:inline-flex; align-items:center; gap:.5rem;
+  background:rgba(0,196,232,.07); border:1px solid var(--border);
+  border-radius:50px; padding:.4rem 1rem;
+  font-family:'Syne',sans-serif; font-size:.68rem; font-weight:700;
+  letter-spacing:.1em; text-transform:uppercase; color:var(--cyan);
+  margin-bottom:1.2rem;
+}
+
+/* ══════════════════════════════════════════
+   SCHEDULE & PRICING
+══════════════════════════════════════════ */
+#schedule { background:linear-gradient(170deg, var(--ink) 0%, var(--navy) 100%); }
+.schedule-grid {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:clamp(1.5rem,3vw,3rem); align-items:start;
+}
+.glass-card {
+  background:rgba(5,13,24,0.6); border:1px solid var(--border);
+  border-radius:var(--rad-lg); padding:clamp(1.5rem,3vw,2.4rem);
+  backdrop-filter:blur(4px);
+}
+.card-h3 {
+  font-family:'Syne',sans-serif; font-size:1.1rem; font-weight:700;
+  color:var(--cyan); margin-bottom:1.5rem;
+  display:flex; align-items:center; gap:.65rem;
+}
+.day-row {
+  display:flex; align-items:center; gap:1rem;
+  padding:.85rem 0; border-bottom:1px solid var(--border-b);
+}
+.day-row:last-child { border-bottom:none; }
+.day-dot { width:7px; height:7px; border-radius:50%; background:var(--cyan); flex-shrink:0; }
+.day-name { font-weight:600; font-size:.92rem; flex:1; }
+.day-time { font-size:.82rem; color:var(--text); text-align:right; line-height:1.6; }
+.sched-note {
+  margin-top:1.4rem; padding:1rem 1.2rem;
+  background:rgba(0,196,232,.06); border:1px solid var(--border);
+  border-radius:var(--rad-sm); font-size:.82rem; color:var(--text); line-height:1.7;
+}
+/* pricing */
+.pricing-card { text-align:center; position:relative; overflow:hidden; }
+.pricing-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:3px;
+  background:linear-gradient(90deg, var(--blue), var(--cyan));
+}
+.price-eyebrow {
+  display:inline-block; font-family:'Syne',sans-serif;
+  font-size:.68rem; font-weight:700; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--cyan); margin-bottom:.6rem;
+}
+.price-tag {
+  font-family:'Instrument Serif',serif; font-size:clamp(3.5rem,7vw,5.5rem);
+  font-weight:400; line-height:1;
+  background:linear-gradient(135deg, var(--sky), var(--cyan));
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+}
+.price-period { font-size:.86rem; color:var(--text); margin:0.3rem 0 1.8rem; }
+.price-feats { list-style:none; text-align:left; margin-bottom:2rem; }
+.price-feats li {
+  display:flex; align-items:center; gap:.75rem;
+  padding:.72rem 0; border-bottom:1px solid var(--border-b);
+  color:var(--text-med); font-size:.88rem;
+}
+.price-feats li:last-child { border-bottom:none; }
+.price-feats li svg { color:var(--cyan); flex-shrink:0; width:16px; height:16px; }
+
+/* ══════════════════════════════════════════
+   WOMEN'S MONTH PROMO
+══════════════════════════════════════════ */
+#promo {
+  background:linear-gradient(160deg, #100018 0%, #1a002c 50%, #100018 100%);
+  position:relative; overflow:hidden; padding:clamp(4rem,8vw,7rem) 5%;
+}
+#promo::before {
+  content:''; position:absolute; top:-100px; left:-100px;
+  width:450px; height:450px; border-radius:50%;
+  background:radial-gradient(circle, rgba(220,40,120,.15), transparent 65%);
+  pointer-events:none; animation:pOrb1 9s ease-in-out infinite;
+}
+#promo::after {
+  content:''; position:absolute; bottom:-80px; right:-80px;
+  width:380px; height:380px; border-radius:50%;
+  background:radial-gradient(circle, rgba(244,114,182,.12), transparent 65%);
+  pointer-events:none; animation:pOrb2 11s ease-in-out infinite;
+}
+@keyframes pOrb1 { 0%,100%{transform:translate(0,0);} 50%{transform:translate(35px,25px);} }
+@keyframes pOrb2 { 0%,100%{transform:translate(0,0);} 50%{transform:translate(-25px,-20px);} }
+:root {
+  --pink:#e8218a; --pink-light:#f472b6; --pink-dark:#c0166e;
+}
+.promo-container { max-width:1200px; margin:0 auto; position:relative; z-index:2; }
+.promo-eyebrow {
+  display:flex; align-items:center; justify-content:center; gap:.75rem; margin-bottom:2.4rem;
+}
+.promo-eyebrow-line {
+  flex:1; max-width:120px; height:1px;
+  background:linear-gradient(90deg, transparent, rgba(232,33,138,.5));
+}
+.promo-eyebrow-line.r { background:linear-gradient(90deg, rgba(232,33,138,.5), transparent); }
+.promo-eyebrow-tag {
+  font-family:'Syne',sans-serif; font-size:.68rem; font-weight:700;
+  letter-spacing:.18em; text-transform:uppercase; color:var(--pink-light);
+}
+.promo-card {
+  background:rgba(255,255,255,.03); border:1px solid rgba(232,33,138,.2);
+  border-radius:var(--rad-lg); padding:clamp(2rem,4vw,3.2rem);
+  position:relative; overflow:hidden; backdrop-filter:blur(8px);
+  transition:border-color .4s, box-shadow .4s;
+}
+.promo-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:3px;
+  background:linear-gradient(90deg, transparent, var(--pink), var(--pink-light), var(--pink), transparent);
+  background-size:200% 100%; animation:shimmer 3s linear infinite;
+}
+@keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+.promo-card:hover { border-color:rgba(232,33,138,.45); box-shadow:0 24px 80px rgba(232,33,138,.15); }
+.promo-layout {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:clamp(2rem,4vw,4rem); align-items:center;
+}
+.promo-title {
+  font-family:'Instrument Serif',serif; font-size:clamp(2rem,5vw,3.8rem);
+  font-weight:400; line-height:1.06; margin-bottom:.5rem;
+  background:linear-gradient(135deg,#fff 0%,var(--pink-light) 50%,var(--pink) 100%);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+}
+.promo-title em { font-style:italic; display:block; font-size:.68em; }
+.promo-theme {
+  display:flex; align-items:flex-start; gap:.65rem;
+  margin:1.2rem 0;
+}
+.promo-theme-dot {
+  width:6px; height:6px; border-radius:50%; background:var(--pink);
+  flex-shrink:0; margin-top:.45rem;
+  animation:dotPulse 1.8s ease-in-out infinite;
+}
+@keyframes dotPulse { 0%,100%{transform:scale(1);} 50%{transform:scale(1.8);opacity:.6;} }
+.promo-theme p { font-size:clamp(.9rem,1.7vw,1.05rem); color:rgba(255,255,255,.72); font-style:italic; line-height:1.7; }
+.promo-theme strong { color:var(--pink-light); font-style:normal; }
+.promo-tagline {
+  font-family:'Syne',sans-serif; font-size:clamp(1rem,2vw,1.3rem); font-weight:700;
+  color:var(--pink-light); margin:1.4rem 0 1rem; line-height:1.35;
+}
+.promo-bullets { list-style:none; display:flex; flex-direction:column; gap:.65rem; margin-bottom:1.8rem; }
+.promo-bullets li { display:flex; align-items:flex-start; gap:.65rem; font-size:.88rem; color:rgba(255,255,255,.78); line-height:1.65; }
+.promo-icon {
+  width:20px; height:20px; border-radius:50%; flex-shrink:0; margin-top:.15rem;
+  background:rgba(232,33,138,.15); border:1px solid rgba(232,33,138,.3);
+  display:flex; align-items:center; justify-content:center; color:var(--pink-light);
+  font-size:.65rem;
+}
+.promo-badges { display:flex; flex-wrap:wrap; gap:.5rem; margin-bottom:1.8rem; }
+.promo-badge {
+  display:inline-flex; align-items:center; gap:.4rem;
+  background:rgba(232,33,138,.1); border:1px solid rgba(232,33,138,.22);
+  border-radius:50px; padding:.32rem .85rem;
+  font-family:'Syne',sans-serif; font-size:.7rem; font-weight:700; color:var(--pink-light);
+}
+.btn-promo {
+  display:inline-flex; align-items:center; gap:.6rem;
+  background:linear-gradient(135deg, var(--pink-dark), var(--pink), var(--pink-light));
+  background-size:200% 100%;
+  color:#fff; font-family:'Syne',sans-serif; font-weight:700; font-size:.9rem;
+  padding:.95rem 2.4rem; border-radius:50px; border:none; cursor:pointer;
+  box-shadow:0 6px 32px rgba(232,33,138,.4);
+  animation:promoShimmer 3s ease-in-out infinite;
+  transition:transform .2s, box-shadow .2s; text-decoration:none;
+}
+.btn-promo:hover { transform:translateY(-3px); box-shadow:0 12px 48px rgba(232,33,138,.65); }
+@keyframes promoShimmer { 0%,100%{background-position:0%} 50%{background-position:100%} }
+.promo-valid { font-size:.74rem; color:rgba(255,255,255,.4); margin-top:.8rem; font-style:italic; }
+/* promo image side */
+.promo-img-wrap {
+  position:relative; border-radius:var(--rad-lg); overflow:hidden;
+  box-shadow:0 30px 80px rgba(232,33,138,.15), 0 0 0 1px rgba(232,33,138,.15);
+  transition:transform .4s;
+}
+.promo-img-wrap:hover { transform:scale(1.02) translateY(-4px); }
+.promo-img-wrap img { width:100%; display:block; }
+.promo-disc {
+  position:absolute; top:-18px; right:-18px; z-index:3;
+  width:88px; height:88px; border-radius:50%;
+  background:linear-gradient(135deg, var(--pink-dark), var(--pink));
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  box-shadow:0 8px 32px rgba(232,33,138,.6);
+  animation:discPop 2.2s ease-in-out infinite;
+}
+.promo-disc span { font-weight:900; font-size:1.35rem; color:#fff; line-height:1; }
+.promo-disc small { font-size:.6rem; font-weight:700; color:rgba(255,255,255,.85); letter-spacing:.06em; }
+@keyframes discPop { 0%,100%{box-shadow:0 8px 32px rgba(232,33,138,.6);transform:scale(1);} 50%{box-shadow:0 12px 48px rgba(232,33,138,.9);transform:scale(1.06);} }
+.promo-coach {
+  position:absolute; bottom:-16px; left:-8px; z-index:3;
+  display:flex; align-items:center; gap:.65rem;
+  background:rgba(16,0,24,.9); border:1px solid rgba(232,33,138,.28);
+  backdrop-filter:blur(12px); border-radius:50px;
+  padding:.5rem 1.1rem .5rem .5rem;
+  animation:chipFloat 4s ease-in-out infinite;
+}
+@keyframes chipFloat { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-5px);} }
+.promo-coach-av {
+  width:34px; height:34px; border-radius:50%;
+  background:linear-gradient(135deg, var(--pink-dark), var(--pink));
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Syne',sans-serif; font-weight:700; font-size:.78rem; color:#fff;
+  border:2px solid rgba(232,33,138,.4);
+}
+.promo-coach strong { display:block; font-size:.78rem; color:#fff; line-height:1.2; }
+.promo-coach span { font-size:.66rem; color:rgba(255,255,255,.5); }
+.promo-urgency {
+  margin-top:2.4rem; display:flex; align-items:center; gap:1rem;
+  background:rgba(232,33,138,.06); border:1px solid rgba(232,33,138,.16);
+  border-radius:14px; padding:1rem 1.4rem;
+}
+.promo-urgency-icon {
+  width:38px; height:38px; border-radius:10px; flex-shrink:0;
+  background:rgba(232,33,138,.14); border:1px solid rgba(232,33,138,.22);
+  display:flex; align-items:center; justify-content:center; color:var(--pink-light);
+  animation:urgPulse 2s ease-in-out infinite;
+}
+@keyframes urgPulse { 0%,100%{background:rgba(232,33,138,.14);} 50%{background:rgba(232,33,138,.26);} }
+.promo-urgency strong { display:block; font-size:.86rem; color:var(--pink-light); margin-bottom:.12rem; }
+.promo-urgency span { font-size:.76rem; color:rgba(255,255,255,.45); }
+.promo-countdown { margin-left:auto; text-align:right; }
+.promo-countdown .dnum {
+  font-family:'Instrument Serif',serif; font-size:2rem; line-height:1;
+  background:linear-gradient(135deg,var(--pink-light),var(--pink));
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+}
+.promo-countdown .dlbl { font-size:.62rem; color:rgba(255,255,255,.38); letter-spacing:.1em; text-transform:uppercase; }
+
+/* ══════════════════════════════════════════
+   LOCATION
+══════════════════════════════════════════ */
+#location { background:linear-gradient(170deg, var(--navy) 0%, var(--ink) 100%); }
+.loc-grid {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:clamp(1.5rem,3vw,3rem); align-items:start;
+}
+.map-wrap {
+  border-radius:var(--rad-lg); overflow:hidden; border:1px solid var(--border);
+  height:clamp(280px,45vw,420px);
+}
+.map-wrap iframe { width:100%; height:100%; border:none; display:block; }
+.loc-cards { display:flex; flex-direction:column; gap:.85rem; }
+.loc-card {
+  display:flex; align-items:flex-start; gap:1rem;
+  background:var(--glass); border:1px solid var(--border);
+  border-radius:var(--rad-sm); padding:1.2rem 1.3rem;
+  transition:background .2s;
+}
+.loc-card:hover { background:rgba(0,196,232,.07); }
+.loc-icon {
+  width:38px; height:38px; border-radius:10px; flex-shrink:0;
+  background:rgba(0,196,232,.1); border:1px solid var(--border);
+  display:flex; align-items:center; justify-content:center; color:var(--cyan);
+}
+.loc-lbl { font-family:'Syne',sans-serif; font-size:.62rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--cyan); margin-bottom:.25rem; }
+.loc-val { font-size:.86rem; color:var(--text-med); line-height:1.55; }
+.loc-val a { color:var(--text-med); }
+.loc-val a:hover { color:var(--cyan); }
+
+/* ══════════════════════════════════════════
+   CONTACT
+══════════════════════════════════════════ */
+#contact { background:var(--ink); }
+.contact-grid {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:clamp(1.5rem,4vw,3.5rem); align-items:start;
+}
+.reach-btns { display:grid; grid-template-columns:1fr 1fr; gap:.75rem; margin-bottom:1.2rem; }
+.reach-btn {
+  display:flex; align-items:center; gap:.75rem;
+  padding:.9rem 1.1rem; border-radius:var(--rad-sm);
+  transition:transform .2s, box-shadow .2s; text-decoration:none;
+}
+.reach-lbl { font-family:'Syne',sans-serif; font-weight:700; font-size:.82rem; color:#fff; line-height:1.2; }
+.reach-sub { font-size:.68rem; color:rgba(255,255,255,.65); margin-top:.1rem; }
+.reach-wa { background:#1da851; }
+.reach-wa:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(29,168,81,.4); }
+.reach-email {
+  background:rgba(0,196,232,.1); border:1px solid rgba(0,196,232,.22);
+}
+.reach-email .reach-lbl { color:var(--cyan); }
+.reach-email .reach-sub { color:var(--text); }
+.reach-email:hover { background:rgba(0,196,232,.17); transform:translateY(-2px); }
+.form-card {
+  background:var(--glass); border:1px solid var(--border);
+  border-radius:var(--rad-lg); padding:clamp(1.4rem,3vw,2.2rem);
+}
+.form-title {
+  font-family:'Syne',sans-serif; font-size:1.05rem; font-weight:700;
+  display:flex; align-items:center; gap:.6rem; margin-bottom:1.4rem; color:var(--white);
+}
+.form-title svg { color:var(--cyan); flex-shrink:0; width:18px; height:18px; }
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:.8rem; }
+.fgrp { display:flex; flex-direction:column; gap:.35rem; margin-bottom:.8rem; }
+.fgrp:last-child { margin-bottom:0; }
+.flbl { font-family:'Syne',sans-serif; font-size:.62rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.4); }
+.finput, .fselect, .ftextarea {
+  background:rgba(5,13,24,.7); border:1px solid var(--border);
+  border-radius:var(--rad-sm); padding:.78rem 1rem;
+  color:var(--white); font-family:'DM Sans',sans-serif; font-size:.9rem;
+  outline:none; transition:border-color .2s, box-shadow .2s;
+  -webkit-appearance:none; width:100%;
+}
+.finput:focus, .fselect:focus, .ftextarea:focus {
+  border-color:var(--cyan); box-shadow:0 0 0 3px rgba(0,196,232,.1);
+}
+.ftextarea { resize:vertical; min-height:100px; }
+.fselect { cursor:pointer; }
+.form-btns { display:flex; gap:.75rem; margin-top:.85rem; flex-wrap:wrap; }
+.btn-wa-send {
+  display:inline-flex; align-items:center; gap:.5rem; flex:1; justify-content:center;
+  background:linear-gradient(135deg,var(--blue),var(--cyan));
+  color:var(--ink); font-family:'Syne',sans-serif; font-weight:700; font-size:.88rem;
+  padding:.84rem 1.6rem; border-radius:50px; border:none; cursor:pointer;
+  box-shadow:0 4px 24px rgba(0,196,232,.3); transition:transform .2s, box-shadow .2s;
+}
+.btn-wa-send:hover { transform:translateY(-1px); box-shadow:0 8px 36px rgba(0,196,232,.5); }
+.btn-em-send {
+  display:inline-flex; align-items:center; gap:.5rem; flex:1; justify-content:center;
+  background:rgba(0,196,232,.08); border:1.5px solid rgba(0,196,232,.28);
+  color:var(--cyan); font-family:'Syne',sans-serif; font-weight:700; font-size:.88rem;
+  padding:.84rem 1.6rem; border-radius:50px; cursor:pointer;
+  transition:background .2s, transform .2s;
+}
+.btn-em-send:hover { background:rgba(0,196,232,.17); transform:translateY(-1px); }
+.form-hint { font-size:.7rem; color:var(--text); margin-top:.6rem; line-height:1.55; }
+/* ecocash */
+.eco-head {
+  display:flex; align-items:center; gap:.5rem; flex-wrap:wrap;
+  font-size:.78rem; color:var(--text); margin-bottom:.85rem;
+}
+.eco-head strong { color:var(--cyan); }
+.eco-card {
+  background:linear-gradient(135deg,#004400,#196119);
+  border-radius:var(--rad-lg); padding:clamp(1.2rem,3vw,1.8rem);
+  position:relative; overflow:hidden;
+}
+.eco-card::before {
+  content:''; position:absolute; top:-40px; right:-40px;
+  width:160px; height:160px; border-radius:50%;
+  background:rgba(255,255,255,.04); pointer-events:none;
+}
+.eco-logo { display:flex; align-items:center; gap:.65rem; margin-bottom:1.2rem; }
+.eco-logo-box { background:#fff; border-radius:7px; padding:.3rem .7rem; font-weight:900; font-size:.9rem; color:#004400; }
+.eco-sub { font-size:.65rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.6); }
+.eco-num { font-family:'Instrument Serif',serif; font-size:clamp(1.4rem,4vw,2rem); font-weight:400; color:#fff; letter-spacing:.06em; margin-bottom:.25rem; }
+.eco-name { font-size:.8rem; color:rgba(255,255,255,.65); margin-bottom:1.1rem; }
+.eco-amount { background:rgba(255,255,255,.1); border-radius:10px; padding:.85rem 1.1rem; margin-bottom:1.1rem; display:flex; align-items:center; justify-content:space-between; }
+.eco-amt-lbl { font-size:.72rem; color:rgba(255,255,255,.65); }
+.eco-amt-val { font-family:'Instrument Serif',serif; font-size:1.4rem; color:#fff; }
+.eco-steps { display:flex; flex-direction:column; gap:.6rem; }
+.eco-step { display:flex; align-items:flex-start; gap:.65rem; font-size:.8rem; color:rgba(255,255,255,.8); line-height:1.55; }
+.eco-step-n {
+  width:21px; height:21px; border-radius:50%; flex-shrink:0; margin-top:.1rem;
+  background:rgba(255,255,255,.18); display:flex; align-items:center; justify-content:center;
+  font-size:.65rem; font-weight:700; color:#fff;
+}
+.eco-tip { background:rgba(255,255,255,.08); border-radius:10px; padding:.75rem 1rem; margin-top:.9rem; font-size:.76rem; color:rgba(255,255,255,.8); line-height:1.6; }
+.eco-tip strong { color:#fff; }
+/* contact info stack */
+.cinfo-stack {
+  background:var(--glass); border:1px solid var(--border);
+  border-radius:var(--rad); overflow:hidden; margin-top:1.2rem;
+}
+.cinfo-row {
+  display:flex; align-items:flex-start; gap:.9rem;
+  padding:1rem 1.2rem; border-bottom:1px solid var(--border);
+  transition:background .2s;
+}
+.cinfo-row:last-child { border-bottom:none; }
+.cinfo-row:hover { background:rgba(0,196,232,.06); }
+.cinfo-icon {
+  width:32px; height:32px; border-radius:8px; flex-shrink:0; margin-top:.1rem;
+  background:rgba(0,196,232,.1); border:1px solid var(--border);
+  display:flex; align-items:center; justify-content:center; color:var(--cyan);
+}
+.cinfo-lbl { font-family:'Syne',sans-serif; font-size:.6rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--cyan); margin-bottom:.18rem; }
+.cinfo-val { font-size:.84rem; color:var(--text-med); line-height:1.5; }
+.cinfo-val a { color:var(--text-med); }
+.cinfo-val a:hover { color:var(--cyan); }
+/* success */
+.form-success { display:none; text-align:center; padding:3rem 1rem; }
+.success-icon {
+  width:76px; height:76px; border-radius:50%; margin:0 auto 1.4rem;
+  background:linear-gradient(135deg,var(--blue),var(--cyan));
+  display:flex; align-items:center; justify-content:center; color:var(--ink);
+}
+.success-h { font-family:'Instrument Serif',serif; font-size:2.2rem; margin-bottom:.7rem; }
+.success-p { color:var(--text); max-width:460px; margin:0 auto; line-height:1.75; font-size:.94rem; }
+
+/* ══════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════ */
+footer {
+  background:#020810; border-top:1px solid var(--border);
+  padding:clamp(2rem,4vw,3.5rem) 5% clamp(1.5rem,3vw,2rem); overflow:hidden;
+}
+.footer-inner {
+  max-width:1200px; margin:0 auto;
+  display:grid; grid-template-columns:1.8fr 1fr 1fr;
+  gap:2.5rem; margin-bottom:2.5rem;
+}
+.footer-brand-name {
+  font-family:'Syne',sans-serif; font-weight:800; font-size:1.2rem;
+  display:flex; align-items:center; gap:.6rem; margin-bottom:.7rem;
+}
+.footer-brand-name span { color:var(--cyan); }
+.footer-tagline { font-size:.82rem; color:rgba(255,255,255,.35); font-style:italic; line-height:1.65; max-width:250px; }
+.footer-col h4 {
+  font-family:'Syne',sans-serif; font-size:.68rem; font-weight:700;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--cyan); margin-bottom:1rem;
+}
+.footer-col ul { list-style:none; display:flex; flex-direction:column; gap:.6rem; }
+.footer-col ul a { color:rgba(255,255,255,.45); font-size:.86rem; transition:color .2s; }
+.footer-col ul a:hover { color:var(--cyan); }
+.footer-bottom {
+  max-width:1200px; margin:0 auto;
+  padding-top:1.4rem; border-top:1px solid rgba(255,255,255,.06);
+  display:flex; align-items:center; justify-content:space-between;
+  flex-wrap:wrap; gap:.8rem; font-size:.76rem; color:rgba(255,255,255,.28);
+}
+.footer-bottom a { color:rgba(0,196,232,.55); }
+.footer-bottom a:hover { color:var(--cyan); }
+
+/* ══════════════════════════════════════════
+   SCROLL REVEAL
+══════════════════════════════════════════ */
+.reveal      { opacity:0; transform:translateY(36px); transition:opacity .75s ease, transform .75s ease; }
+.reveal-l    { opacity:0; transform:translateX(-40px); transition:opacity .75s ease, transform .75s ease; }
+.reveal-r    { opacity:0; transform:translateX(40px);  transition:opacity .75s ease, transform .75s ease; }
+.reveal.on,.reveal-l.on,.reveal-r.on { opacity:1; transform:none; }
+
+/* ══════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════ */
+@media(max-width:1040px){
+  .svc-card.featured { grid-column:span 1; display:flex; flex-direction:column; }
+  .svc-card.featured .svc-card-img { height:200px; }
+  .footer-inner { grid-template-columns:1fr 1fr; }
+}
+@media(max-width:860px){
+  .nav-links { display:none; }
+  .hamburger { display:flex; }
+  .hero-inner { grid-template-columns:1fr; text-align:center; gap:3rem; }
+  .hero-img-col { max-width:420px; margin:0 auto; width:100%; order:-1; }
+  .hero-p { margin:0 auto 2rem; }
+  .hero-btns { justify-content:center; }
+  .hero-stat-float { left:auto; right:-1rem; }
+  .about-grid { grid-template-columns:1fr; }
+  .about-img-secondary { right:-1rem; }
+  .about-badge { left:auto; right:1rem; top:-1rem; }
+  .benefits-layout { grid-template-columns:1fr; }
+  .stats-grid { grid-template-columns:1fr 1fr; }
+  .gallery-masonry { grid-template-columns:1fr 1fr; grid-template-rows:auto; }
+  .g-item:first-child { grid-row:span 1; }
+  .tennis-layout { grid-template-columns:1fr; }
+  .merch-layout { grid-template-columns:1fr; }
+  .merch-img:first-child { min-height:240px; }
+  .schedule-grid { grid-template-columns:1fr; }
+  .loc-grid { grid-template-columns:1fr; }
+  .contact-grid { grid-template-columns:1fr; }
+  .promo-layout { grid-template-columns:1fr; }
+  .promo-right { max-width:480px; margin:0 auto; }
+  .footer-inner { grid-template-columns:1fr; gap:1.8rem; }
+  .footer-bottom { flex-direction:column; align-items:flex-start; }
+}
+@media(max-width:600px){
+  section { padding:3rem 5%; }
+  .hero-inner { gap:2rem; }
+  .hero-h1 { font-size:clamp(2rem,10vw,2.8rem); }
+  .reach-btns { grid-template-columns:1fr; }
+  .form-row { grid-template-columns:1fr; }
+  .form-btns { flex-direction:column; }
+  .btn-wa-send, .btn-em-send { width:100%; }
+  .gallery-masonry { grid-template-columns:1fr; }
+  .g-item { height:220px; }
+  .g-item:first-child { grid-row:span 1; height:220px; }
+  .g-item-lbl { opacity:1; transform:none; }
+  .stats-grid { grid-template-columns:1fr; }
+  .promo-disc { top:-10px; right:-8px; width:74px; height:74px; }
+  .promo-coach { left:0; bottom:-12px; }
+  .promo-urgency { flex-wrap:wrap; }
+  .promo-countdown { display:none; }
+  .merch-imgs { grid-template-columns:1fr; }
+  .merch-img:first-child { grid-row:auto; }
+  .hero-stat-float { display:none; }
+  .about-img-secondary { display:none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="nav-logo">
+    <div class="nav-logo-mark">KAS</div>
+    <div>KAS <span>Swim</span></div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#tennis">Tennis</a></li>
+    <li><a href="#merch">Merch</a></li>
+    <li><a href="#schedule">Schedule</a></li>
+    <li><a href="#location">Location</a></li>
+    <li><a href="#contact" class="nav-cta">Book Now</a></li>
+  </ul>
+  <button class="hamburger" id="menuBtn" onclick="toggleMenu()" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-nav-close" onclick="closeMenu()" aria-label="Close menu">✕</button>
+  <a href="#home" onclick="closeMenu()">Home</a>
+  <a href="#about" onclick="closeMenu()">About</a>
+  <a href="#services" onclick="closeMenu()">Services</a>
+  <a href="#tennis" onclick="closeMenu()">Tennis</a>
+  <a href="#merch" onclick="closeMenu()">Merch</a>
+  <a href="#schedule" onclick="closeMenu()">Schedule</a>
+  <a href="#location" onclick="closeMenu()">Location</a>
+  <a href="#contact" onclick="closeMenu()" style="color:var(--cyan)">Book Now</a>
+</div>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-bg-img"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-lines">
+    <svg viewBox="0 0 1440 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0 60 C200 90 400 30 600 60 S1000 90 1200 60 S1400 30 1440 60 L1440 120 L0 120Z" fill="rgba(0,196,232,0.06)"/>
+      <path d="M0 80 C240 50 480 110 720 80 S1200 50 1440 80 L1440 120 L0 120Z" fill="rgba(17,102,204,0.05)"/>
+    </svg>
+  </div>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-badge">
+        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        KAS Swim Academy · Harare, Zimbabwe
+      </div>
+      <h1 class="hero-h1">
+        <span class="block">Elite Aquatic Training</span>
+        Master the <em class="accent">Water.</em><br>Master Yourself.
+      </h1>
+      <p class="hero-p">World-class swim coaching, aqua fitness, and athletic training — built for every level, every age, every goal. Your strongest self lives in the pool.</p>
+      <div class="hero-btns">
+        <a href="#contact" class="btn-primary">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          Start Training Today
+        </a>
+        <a href="#services" class="btn-ghost">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/></svg>
+          Explore Programs
+        </a>
+      </div>
+    </div>
+    <div class="hero-img-col">
+      <div class="hero-stat-float">
+        <div class="hero-stat-num">500+</div>
+        <div class="hero-stat-lbl">Students trained since launch</div>
+      </div>
+      <div class="hero-img-frame">
+        <img src="https://images.unsplash.com/photo-1560090995-01632a28895b?w=800&q=80&auto=format&fit=crop" alt="Elite swim training at KAS Swim Academy">
+        <div class="hero-img-tag">
+          <div class="hero-img-tag-dot"></div>
+          <span>Classes Available Now</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-wave">
+    <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0 40 C360 80 1080 0 1440 40 L1440 80 L0 80 Z" fill="var(--ink)"/>
+    </svg>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap" aria-hidden="true">
+  <div class="ticker-inner">
+    <div class="ticker-item">KAS Swim Academy <span class="ticker-dot"></span></div>
+    <div class="ticker-item">Aqua Aerobics <span class="ticker-dot"></span></div>
+    <div class="ticker-item">Deep Water Training <span class="ticker-dot"></span></div>
+    <div class="ticker-item">Adult Swim Lessons <span class="ticker-dot"></span></div>
+    <div class="ticker-item">Tennis Coaching <span class="ticker-dot"></span></div>
+    <div class="ticker-item">SCW Certified <span class="ticker-dot"></span></div>
+    <div class="ticker-item">Harare, Zimbabwe <span class="ticker-dot"></span></div>
+    <div class="ticker-item">All Levels Welcome <span class="ticker-dot"></span></div>
+    <!-- duplicate for seamless scroll -->
+    <div class="ticker-item">KAS Swim Academy <span class="ticker-dot"></span></div>
+    <div class="ticker-item">Aqua Aerobics <span class="ticker-dot"></span></div>
+    <div class="ticker-item">Deep Water Training <span class="ticker-dot"></span></div>
+    <div class="ticker-item">Adult Swim Lessons <span class="ticker-dot"></span></div>
+    <div class="ticker-item">Tennis Coaching <span class="ticker-dot"></span></div>
+    <div class="ticker-item">SCW Certified <span class="ticker-dot"></span></div>
+    <div class="ticker-item">Harare, Zimbabwe <span class="ticker-dot"></span></div>
+    <div class="ticker-item">All Levels Welcome <span class="ticker-dot"></span></div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-img-col reveal-l">
+        <div class="about-img-stack">
+          <div class="about-badge"><strong>SCW</strong>Certified Instructor</div>
+          <div class="about-img-main">
+            <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800&q=80&auto=format&fit=crop" alt="KAS Swim Academy head coach">
+          </div>
+          <div class="about-img-secondary">
+            <img src="https://images.unsplash.com/photo-1600965962361-9035dbfd1c50?w=600&q=80&auto=format&fit=crop" alt="Swim coaching session">
+          </div>
+        </div>
+      </div>
+      <div class="about-text reveal-r">
+        <div class="section-tag">About KAS Swim Academy</div>
+        <h2 class="section-h2">Where <em>Excellence</em> Meets Every Stroke</h2>
+        <p>KAS Swim Academy is Harare's premier aquatic training destination — specialising in aqua aerobics, deep water conditioning, adult swim instruction, and sports-specific athletic coaching.</p>
+        <p>Led by an internationally SCW-certified aqua aerobics instructor and seasoned fitness trainer, every KAS program is engineered to deliver real results: stronger cardiovascular health, functional strength, improved flexibility, and whole-body well-being.</p>
+        <p>Whether you're dipping your toes in for the first time, recovering from injury, or pushing your athletic ceiling, KAS meets you exactly where you are — and takes you further.</p>
+        <div class="about-highlights">
+          <div class="about-hl">
+            <div class="about-hl-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg>
+            </div>
+            <div class="about-hl-text"><strong>SCW Internationally Certified</strong><span>Globally recognised aqua aerobics qualification</span></div>
+          </div>
+          <div class="about-hl">
+            <div class="about-hl-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div class="about-hl-text"><strong>All Ages &amp; All Levels</strong><span>From complete beginners to competitive athletes</span></div>
+          </div>
+          <div class="about-hl">
+            <div class="about-hl-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <div class="about-hl-text"><strong>Small Classes, Big Results</strong><span>Personalised coaching with maximum individual attention</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<div class="wdiv"><svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0 0 C480 60 960 0 1440 60 L1440 60 L0 60 Z" fill="var(--navy)"/></svg></div>
+<section id="services">
+  <div class="container">
+    <div class="section-head centered reveal">
+      <div class="section-tag">What We Offer</div>
+      <h2 class="section-h2">Our <em>Programs</em></h2>
+      <p class="section-sub">Each program is purpose-built for real results — effective, energising, and tailored to your specific goals.</p>
+    </div>
+    <div class="services-grid">
+      <div class="svc-card reveal">
+        <div class="svc-card-img">
+          <img src="https://images.unsplash.com/photo-1519315901367-f34ff9154487?w=600&q=80&auto=format&fit=crop" alt="Aqua aerobics class">
+        </div>
+        <div class="svc-num">01</div>
+        <div class="svc-card-body">
+          <div class="svc-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/></svg>
+          </div>
+          <div class="svc-title">Aqua Aerobics Classes</div>
+          <p class="svc-desc">Low-impact, high-energy pool workouts targeting weight loss, cardiovascular fitness, and muscle toning. Ideal for adults, seniors, and newcomers to fitness.</p>
+          <div class="svc-tags"><span class="stag">Weight Loss</span><span class="stag">Cardio</span><span class="stag">Toning</span><span class="stag">All Levels</span></div>
+        </div>
+      </div>
+      <div class="svc-card reveal">
+        <div class="svc-card-img">
+          <img src="https://images.unsplash.com/photo-1530549387789-4c1017266635?w=600&q=80&auto=format&fit=crop" alt="Deep water training">
+        </div>
+        <div class="svc-num">02</div>
+        <div class="svc-card-body">
+          <div class="svc-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+          </div>
+          <div class="svc-title">Deep Water Training</div>
+          <p class="svc-desc">Advanced aquatic workouts in the deep end — high resistance, intense core conditioning, and endurance work with absolutely zero joint stress.</p>
+          <div class="svc-tags"><span class="stag">Core</span><span class="stag">Resistance</span><span class="stag">Endurance</span></div>
+        </div>
+      </div>
+      <div class="svc-card featured reveal">
+        <div class="svc-card-img">
+          <img src="https://images.unsplash.com/photo-1601646761827-b0ce6a3b3792?w=900&q=80&auto=format&fit=crop" alt="Adult swim lessons">
+        </div>
+        <div class="svc-num">03</div>
+        <div class="svc-card-body" style="display:flex;flex-direction:column;justify-content:center;">
+          <div class="svc-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+          </div>
+          <div class="svc-title">Adult Swim Lessons</div>
+          <p class="svc-desc">Expert swim instruction for adults — whether you're learning from scratch, refining technique, or building confidence in deep water. There is never a wrong time to learn. Our structured programme builds water-safety skills, stroke efficiency, and genuine swimming confidence in a supportive, non-intimidating environment.</p>
+          <div class="svc-tags"><span class="stag">Beginners</span><span class="stag">Technique</span><span class="stag">Confidence</span><span class="stag">Water Safety</span></div>
+        </div>
+      </div>
+      <div class="svc-card reveal">
+        <div class="svc-card-img">
+          <img src="https://images.unsplash.com/photo-1555597673-b21d5c935865?w=600&q=80&auto=format&fit=crop" alt="Sports coaching">
+        </div>
+        <div class="svc-num">04</div>
+        <div class="svc-card-body">
+          <div class="svc-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+          </div>
+          <div class="svc-title">Sports Coaching</div>
+          <p class="svc-desc">Specialist aquatic sports coaching from an SCW-certified instructor. Tailored programs built to elevate your athletic performance and competitive edge.</p>
+          <div class="svc-tags"><span class="stag">SCW Certified</span><span class="stag">Performance</span><span class="stag">Personalised</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY KAS -->
+<div class="wdiv"><svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0 60 C360 0 1080 60 1440 0 L1440 0 L0 0 Z" fill="var(--navy)"/></svg></div>
+<section id="benefits">
+  <div class="container">
+    <div class="benefits-layout">
+      <div class="reveal-l">
+        <div class="section-tag">Why Choose KAS</div>
+        <h2 class="section-h2">The <em>Science</em> of Water Fitness</h2>
+        <p class="benefits-lead">Water is nature's most powerful training environment. It provides 12× the resistance of air, supports up to 90% of your body weight, and allows you to work harder while feeling less strain. At KAS, we turn that science into results you can see and feel.</p>
+        <div class="bh">
+          <div class="bh-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></div>
+          <div class="bh-text"><strong>Cardiovascular Health</strong><span>Sustained aerobic effort strengthens your heart, lungs, and circulatory system session by session</span></div>
+        </div>
+        <div class="bh">
+          <div class="bh-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <div class="bh-text"><strong>Joint-Safe Exercise</strong><span>Buoyancy eliminates harmful impact — ideal for arthritis, injury recovery, and seniors</span></div>
+        </div>
+        <div class="bh">
+          <div class="bh-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg></div>
+          <div class="bh-text"><strong>Maximum Calorie Burn</strong><span>Water resistance burns significantly more calories than equivalent land-based workouts</span></div>
+        </div>
+        <div class="bh">
+          <div class="bh-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.46 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.46 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"/></svg></div>
+          <div class="bh-text"><strong>Mental Well-Being</strong><span>The calming effect of water reduces stress hormones and genuinely lifts your mood</span></div>
+        </div>
+      </div>
+      <div class="stats-grid reveal-r">
+        <div class="stat-card wide">
+          <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <div><div class="stat-num">All Ages</div><div class="stat-lbl">Programs crafted for adults, seniors, beginners and athletes — everyone belongs at KAS</div></div>
+        </div>
+        <div class="stat-card">
+          <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/></svg></div>
+          <div class="stat-num">12×</div><div class="stat-lbl">More resistance than air — every rep works harder</div>
+        </div>
+        <div class="stat-card">
+          <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></div>
+          <div class="stat-num">90%</div><div class="stat-lbl">Body weight supported by water — zero harmful impact</div>
+        </div>
+        <div class="stat-card">
+          <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/><path d="m9 16 2 2 4-4"/></svg></div>
+          <div class="stat-num">7 Days</div><div class="stat-lbl">Swimming daily, aqua aerobics 4 evenings a week</div>
+        </div>
+        <div class="stat-card">
+          <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg></div>
+          <div class="stat-num">SCW</div><div class="stat-lbl">Internationally certified aqua aerobics instruction</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<div class="wdiv" style="background:var(--ink);"><svg viewBox="0 0 1440 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0 20 C480 40 960 0 1440 20 L1440 40 L0 40 Z" fill="var(--ink)"/></svg></div>
+<section id="gallery">
+  <div class="gallery-intro reveal">
+    <div class="section-tag">In the Water</div>
+    <h2 class="section-h2">See KAS <em>In Action</em></h2>
+    <p class="section-sub" style="margin:0 auto;">Real coaching. Real water. Real transformation.</p>
+  </div>
+  <div class="gallery-masonry">
+    <div class="g-item">
+      <img src="https://images.unsplash.com/photo-1519315901367-f34ff9154487?w=800&q=80&auto=format&fit=crop" alt="KAS Swim Academy pool fitness session" loading="lazy">
+      <div class="g-item-lbl"><span>Aqua Fitness</span></div>
+    </div>
+    <div class="g-item">
+      <img src="https://images.unsplash.com/photo-1560090995-01632a28895b?w=600&q=80&auto=format&fit=crop" alt="Swimming training" loading="lazy">
+      <div class="g-item-lbl"><span>Swim Training</span></div>
+    </div>
+    <div class="g-item">
+      <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=600&q=80&auto=format&fit=crop" alt="Coaching session" loading="lazy">
+      <div class="g-item-lbl"><span>Expert Coaching</span></div>
+    </div>
+    <div class="g-item">
+      <img src="https://images.unsplash.com/photo-1600965962361-9035dbfd1c50?w=600&q=80&auto=format&fit=crop" alt="Pool workout" loading="lazy">
+      <div class="g-item-lbl"><span>Pool Workout</span></div>
+    </div>
+    <div class="g-item">
+      <img src="https://images.unsplash.com/photo-1601646761827-b0ce6a3b3792?w=600&q=80&auto=format&fit=crop" alt="Water aerobics" loading="lazy">
+      <div class="g-item-lbl"><span>Water Aerobics</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- TENNIS -->
+<div class="wdiv" style="background:#061a0e;"><svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0 30 C400 60 1040 0 1440 30 L1440 60 L0 60 Z" fill="#061a0e"/></svg></div>
+<section id="tennis">
+  <div class="container">
+    <div class="tennis-layout">
+      <div class="reveal-l">
+        <div class="tennis-img-frame">
+          <img src="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=800&q=80&auto=format&fit=crop" alt="KAS tennis coaching" loading="lazy">
+        </div>
+      </div>
+      <div class="tennis-text reveal-r">
+        <div class="section-tag tennis-tag-color">On the Court</div>
+        <h2 class="section-h2">Tennis <em>Coaching</em></h2>
+        <p>Beyond the pool, KAS extends its elite coaching philosophy to the tennis court. Our structured program builds technique, footwork, agility, and competitive confidence — for players of every level.</p>
+        <p>Whether you're holding a racket for the first time or preparing for competition, every session is tailored to your pace and goals by an experienced coach.</p>
+        <div class="tennis-pills">
+          <div class="tennis-pill">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="10" r="3"/><path d="M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662"/></svg>
+            Technique &amp; Form
+          </div>
+          <div class="tennis-pill">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            Footwork &amp; Agility
+          </div>
+          <div class="tennis-pill">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            All Skill Levels
+          </div>
+          <div class="tennis-pill">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+            Match Preparation
+          </div>
+        </div>
+        <a href="#contact" class="btn-primary">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          Book a Tennis Session
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MERCH -->
+<div class="wdiv" style="background:var(--navy);"><svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0 60 C500 0 940 60 1440 0 L1440 0 L0 0 Z" fill="var(--navy)"/></svg></div>
+<section id="merch">
+  <div class="container">
+    <div class="merch-layout">
+      <div class="merch-imgs reveal-l">
+        <div class="merch-img" style="grid-row:span 2;">
+          <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&q=80&auto=format&fit=crop" alt="KAS Swim Academy branded apparel" loading="lazy">
+        </div>
+        <div class="merch-img">
+          <img src="https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?w=400&q=80&auto=format&fit=crop" alt="KAS branded cap and accessories" loading="lazy">
+        </div>
+        <div class="merch-img">
+          <img src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400&q=80&auto=format&fit=crop" alt="KAS performance wear" loading="lazy">
+        </div>
+      </div>
+      <div class="merch-text reveal-r">
+        <div class="merch-badge">
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" x2="21" y1="6" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          Official KAS Collection
+        </div>
+        <div class="section-tag">Wear the Brand</div>
+        <h2 class="section-h2">KAS <em>Merch</em></h2>
+        <p>Train in style. Our official KAS branded collection is designed for athletes who take their fitness seriously — and look exceptional doing it. Every piece embodies the KAS commitment to excellence.</p>
+        <p>Performance-grade fabrics meet bold KAS identity, creating gear that moves with you from the pool deck to everyday life.</p>
+        <div class="merch-feats">
+          <div class="merch-feat"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Premium performance-grade fabrics</div>
+          <div class="merch-feat"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Official KAS Swim Academy branding</div>
+          <div class="merch-feat"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Available to members and the public</div>
+          <div class="merch-feat"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Perfect for pool, court, and beyond</div>
+        </div>
+        <a href="#contact" class="btn-primary">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" x2="21" y1="6" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          Enquire About Merch
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCHEDULE & PRICING -->
+<div class="wdiv" style="background:var(--ink);"><svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0 30 C360 60 1080 0 1440 30 L1440 60 L0 60 Z" fill="var(--ink)"/></svg></div>
+<section id="schedule">
+  <div class="container">
+    <div class="section-head centered reveal">
+      <div class="section-tag">Schedule &amp; Pricing</div>
+      <h2 class="section-h2">Simple, <em>Transparent</em> Plans</h2>
+      <p class="section-sub">Swimming every day of the week. Aqua Aerobics four evenings. Everything you need to build a life-changing fitness habit.</p>
+    </div>
+    <div class="schedule-grid">
+      <div class="glass-card reveal-l">
+        <div class="card-h3">
+          <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+          Swimming Schedule
+        </div>
+        <div class="day-row"><span class="day-dot"></span><span class="day-name">Mon – Fri</span><div class="day-time">8:00 AM – 4:00 PM</div></div>
+        <div class="day-row"><span class="day-dot"></span><span class="day-name">Saturday</span><div class="day-time">8:00 AM – 5:00 PM</div></div>
+        <div class="day-row"><span class="day-dot"></span><span class="day-name">Sunday</span><div class="day-time">8:00 AM – 1:00 PM</div></div>
+        <div class="card-h3" style="margin-top:1.4rem;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/></svg>
+          Aqua Aerobics Schedule
+        </div>
+        <div class="day-row"><span class="day-dot" style="background:var(--sky);"></span><span class="day-name">Mon, Tue, Thu, Fri</span><div class="day-time">4:30 PM – 7:30 PM</div></div>
+        <div class="sched-note">
+          <strong style="color:var(--cyan);">Venue:</strong> Jam Tree, Harare<br>
+          <span style="font-size:.78rem;color:rgba(255,255,255,.4);">Swimming venue: #134 Harare Drive — updating April 2026</span>
+        </div>
+      </div>
+      <div class="glass-card pricing-card reveal-r">
+        <div class="price-eyebrow">Monthly Membership</div>
+        <div class="price-tag">$120</div>
+        <div class="price-period">per month · 12 lessons included</div>
+        <ul class="price-feats">
+          <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> 12 aquatic training sessions</li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Swimming 7 days a week</li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Aqua Aerobics — Mon, Tue, Thu &amp; Fri evenings</li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> SCW certified expert instruction</li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> All fitness levels welcome</li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Personalised guidance every session</li>
+        </ul>
+        <a href="#contact" class="btn-primary" style="width:100%;justify-content:center;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          Get Started Today
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATION -->
+<div class="wdiv" style="background:var(--navy);"><svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0 60 C500 0 940 60 1440 0 L1440 0 L0 0 Z" fill="var(--navy)"/></svg></div>
+<section id="location">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-tag">Find Us</div>
+      <h2 class="section-h2">Our <em>Locations</em></h2>
+      <p class="section-sub">Conveniently located in Harare, Zimbabwe. Come dive in.</p>
+    </div>
+    <div class="loc-grid">
+      <div class="map-wrap reveal-l">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d60974.59!2d31.0335!3d-17.8216!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1931a4e706b17715%3A0x7bb06e5f7ca95f9d!2sHarare%2C+Zimbabwe!5e0!3m2!1sen!2s!4v1" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+      <div class="loc-cards reveal-r">
+        <div class="loc-card">
+          <div class="loc-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><div class="loc-lbl">Aqua Aerobics Venue</div><div class="loc-val">Jam Tree, Harare, Zimbabwe</div></div>
+        </div>
+        <div class="loc-card">
+          <div class="loc-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></div>
+          <div><div class="loc-lbl">Swimming Venue</div><div class="loc-val">#134 Harare Drive, Harare<br><span style="font-size:.77rem;color:rgba(255,255,255,.38);">Full address updating April 2026</span></div></div>
+        </div>
+        <div class="loc-card">
+          <div class="loc-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <div><div class="loc-lbl">Swimming Hours</div><div class="loc-val">Mon–Fri: 8:00 AM – 4:00 PM<br>Saturday: 8:00 AM – 5:00 PM<br>Sunday: 8:00 AM – 1:00 PM</div></div>
+        </div>
+        <div class="loc-card">
+          <div class="loc-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/></svg></div>
+          <div><div class="loc-lbl">Aqua Aerobics Hours</div><div class="loc-val">Mon, Tue, Thu &amp; Fri: 4:30 PM – 7:30 PM</div></div>
+        </div>
+        <a href="https://wa.me/263719809967" target="_blank" style="display:flex;align-items:center;gap:.65rem;background:#1da851;color:#fff;font-family:'Syne',sans-serif;font-weight:700;padding:.85rem 1.4rem;border-radius:var(--rad-sm);font-size:.86rem;transition:transform .2s,box-shadow .2s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 24px rgba(29,168,81,.4)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+          <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Chat on WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div class="wdiv"><svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0 0 C480 60 960 0 1440 60 L1440 60 L0 60 Z" fill="var(--ink)"/></svg></div>
+<section id="contact">
+  <div class="container">
+    <div class="section-head centered reveal">
+      <div class="section-tag">Get In Touch</div>
+      <h2 class="section-h2">Ready to <em>Dive In?</em></h2>
+      <p class="section-sub">Fill in your details and reach us directly — no barriers, no steps. Your fitness journey starts with one message.</p>
+    </div>
+    <div class="contact-grid" id="contactGrid">
+      <div class="reveal-l">
+        <div class="reach-btns">
+          <a href="https://wa.me/263719809967" target="_blank" class="reach-btn reach-wa">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <div><div class="reach-lbl">Chat on WhatsApp</div><div class="reach-sub">+263 71 980 9967</div></div>
+          </a>
+          <a href="/cdn-cgi/l/email-protection#1d5c6c687c75687f6a78717173786e6e5d72686971727276337e7270" class="reach-btn reach-email">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            <div><div class="reach-lbl">Send an Email</div><div class="reach-sub"><span class="__cf_email__" data-cfemail="77360602161f021500121b1b19120404371802031b18181c5914181a">[email&#160;protected]</span></div></div>
+          </a>
+        </div>
+        <div class="form-card">
+          <div class="form-title">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" x2="11" y1="2" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            Send Us Your Details
+          </div>
+          <div class="form-row">
+            <div class="fgrp"><label class="flbl">First Name *</label><input type="text" class="finput" id="cf-fname" placeholder="First name"></div>
+            <div class="fgrp"><label class="flbl">Last Name</label><input type="text" class="finput" id="cf-lname" placeholder="Last name"></div>
+          </div>
+          <div class="form-row">
+            <div class="fgrp"><label class="flbl">Phone / WhatsApp *</label><input type="tel" class="finput" id="cf-phone" placeholder="+263..."></div>
+            <div class="fgrp"><label class="flbl">Email Address</label><input type="email" class="finput" id="cf-email" placeholder="you@email.com"></div>
+          </div>
+          <div class="fgrp">
+            <label class="flbl">Service You're Interested In</label>
+            <select class="fselect" id="cf-service">
+              <option value="" disabled selected>Choose a service...</option>
+              <option>Aqua Aerobics Classes</option>
+              <option>Deep Water Training</option>
+              <option>Adult Swim Lessons</option>
+              <option>Sports Coaching</option>
+              <option>Tennis Coaching</option>
+              <option>Merch Enquiry</option>
+              <option>General Enquiry</option>
+            </select>
+          </div>
+          <div class="fgrp">
+            <label class="flbl">Preferred Class Day &amp; Time</label>
+            <select class="fselect" id="cf-time">
+              <option value="" disabled selected>Pick a slot...</option>
+              <optgroup label="Swimming (Mon – Fri)"><option>Swimming — Mon to Fri, 8:00 AM – 4:00 PM</option></optgroup>
+              <optgroup label="Swimming (Weekend)"><option>Swimming — Saturday, 8:00 AM – 5:00 PM</option><option>Swimming — Sunday, 8:00 AM – 1:00 PM</option></optgroup>
+              <optgroup label="Aqua Aerobics"><option>Aqua Aerobics — Monday, 4:30 PM – 7:30 PM</option><option>Aqua Aerobics — Tuesday, 4:30 PM – 7:30 PM</option><option>Aqua Aerobics — Thursday, 4:30 PM – 7:30 PM</option><option>Aqua Aerobics — Friday, 4:30 PM – 7:30 PM</option></optgroup>
+              <option>Flexible / Open to suggestions</option>
+            </select>
+          </div>
+          <div class="fgrp">
+            <label class="flbl">Message or Notes</label>
+            <textarea class="ftextarea" id="cf-message" placeholder="Tell us your fitness goals, any medical conditions, questions, or anything we should know..."></textarea>
+          </div>
+          <div class="form-btns">
+            <button class="btn-wa-send" onclick="sendViaWhatsApp()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              Send via WhatsApp
+            </button>
+            <button class="btn-em-send" onclick="sendViaEmail()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              Send via Email
+            </button>
+          </div>
+          <p class="form-hint">WhatsApp opens a pre-filled message on your phone. Email opens your email app ready to send.</p>
+        </div>
+      </div>
+      <div class="reveal-r" style="display:flex;flex-direction:column;gap:1.3rem;">
+        <div class="cinfo-stack">
+          <div class="cinfo-row">
+            <div class="cinfo-icon"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.99 12 19.79 19.79 0 0 1 1.97 3.4 2 2 0 0 1 3.96 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+            <div><div class="cinfo-lbl">Phone</div><div class="cinfo-val"><a href="tel:+263719809967">+263 71 980 9967</a></div></div>
+          </div>
+          <div class="cinfo-row">
+            <div class="cinfo-icon"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div><div class="cinfo-lbl">Locations</div><div class="cinfo-val">Jam Tree (Aqua Aerobics)<br>#134 Harare Drive (Swimming)</div></div>
+          </div>
+          <div class="cinfo-row">
+            <div class="cinfo-icon"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div><div class="cinfo-lbl">Classes</div><div class="cinfo-val">Swimming: Daily · Aqua Aerobics: Mon, Tue, Thu &amp; Fri evenings</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-success" id="contactSuccess">
+      <div class="success-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <h3 class="success-h">Message Sent!</h3>
+      <p class="success-p" id="successMsg">Your message is on its way. We'll be in touch shortly.</p>
+      <button onclick="resetForm()" class="btn-primary" style="margin:2rem auto 0;display:inline-flex;border:none;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
+        Send Another Message
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand-name">
+        <div class="nav-logo-mark" style="width:34px;height:34px;font-size:.85rem;">KAS</div>
+        KAS <span>Swim</span> Academy
+      </div>
+      <div class="footer-tagline">"Where excellence meets every stroke." — KAS Swim Academy, Harare</div>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#tennis">Tennis</a></li>
+        <li><a href="#merch">Merch</a></li>
+        <li><a href="#schedule">Schedule &amp; Pricing</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:+263719809967">+263 71 980 9967</a></li>
+        <li><a href="/cdn-cgi/l/email-protection#06477773676e736471636a6a68637575466973726a69696d2865696b"><span class="__cf_email__" data-cfemail="33724246525b465144565f5f5d564040735c46475f5c5c581d505c5e">[email&#160;protected]</span></a></li>
+        <li><a href="#location">Jam Tree &amp; #134 Harare Drive</a></li>
+        <li><a href="https://wa.me/263719809967" target="_blank">WhatsApp Us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 KAS Swim Academy · Harare, Zimbabwe. All rights reserved.</span>
+    <span>Designed by <a href="#" target="_blank">TendoWebsites</a></span>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+/* ── NAVBAR SCROLL ── */
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
+});
+
+/* ── MOBILE MENU ── */
+function toggleMenu() {
+  const btn = document.getElementById('menuBtn');
+  const nav = document.getElementById('mobileNav');
+  btn.classList.toggle('open');
+  nav.classList.toggle('open');
+  document.body.style.overflow = nav.classList.contains('open') ? 'hidden' : '';
+}
+function closeMenu() {
+  document.getElementById('menuBtn').classList.remove('open');
+  document.getElementById('mobileNav').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* ── PROMO COUNTDOWN ── */
+(function() {
+  const END = new Date('2026-04-01T00:00:00');
+  const now = new Date();
+  const promoSection = document.getElementById('promo');
+  const el = document.getElementById('daysLeft');
+  if (now >= END) {
+    if (promoSection) promoSection.style.display = 'none';
+    return;
+  }
+  const days = Math.ceil((END - now) / (1000 * 60 * 60 * 24));
+  if (el) el.textContent = days;
+})();
+
+/* ── SCROLL REVEAL ── */
+(function() {
+  const els = document.querySelectorAll('.reveal, .reveal-l, .reveal-r');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('on'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.07 });
+  els.forEach(el => obs.observe(el));
+})();
+
+/* ── CONTACT FORM ── */
+function getFormData() {
+  return {
+    fname:   document.getElementById('cf-fname').value.trim(),
+    lname:   document.getElementById('cf-lname').value.trim(),
+    phone:   document.getElementById('cf-phone').value.trim(),
+    email:   document.getElementById('cf-email').value.trim(),
+    service: document.getElementById('cf-service').value,
+    time:    document.getElementById('cf-time').value,
+    message: document.getElementById('cf-message').value.trim(),
+  };
+}
+function validateForm() {
+  const d = getFormData();
+  if (!d.fname) { alert('Please enter your first name.'); document.getElementById('cf-fname').focus(); return false; }
+  if (!d.phone) { alert('Please enter your phone or WhatsApp number.'); document.getElementById('cf-phone').focus(); return false; }
+  return true;
+}
+function buildMessage(d) {
+  const name = d.fname + (d.lname ? ' ' + d.lname : '');
+  let msg = `Hi KAS Swim Academy! 👋\n\n`;
+  msg += `*Name:* ${name}\n*Phone:* ${d.phone}\n`;
+  if (d.email)   msg += `*Email:* ${d.email}\n`;
+  if (d.service) msg += `*Interested In:* ${d.service}\n`;
+  if (d.time)    msg += `*Preferred Time:* ${d.time}\n`;
+  if (d.message) msg += `\n*Message:*\n${d.message}`;
+  return msg;
+}
+function sendViaWhatsApp() {
+  if (!validateForm()) return;
+  const d = getFormData();
+  window.open(`https://wa.me/263719809967?text=${encodeURIComponent(buildMessage(d))}`, '_blank');
+  showSuccess(d.fname, 'WhatsApp');
+}
+function sendViaEmail() {
+  if (!validateForm()) return;
+  const d = getFormData();
+  const name = d.fname + (d.lname ? ' ' + d.lname : '');
+  const subject = encodeURIComponent(`KAS Swim Academy Enquiry — ${d.service || 'General'}`);
+  let body = `Hi KAS Swim Academy,\n\nName: ${name}\nPhone: ${d.phone}\n`;
+  if (d.email)   body += `Email: ${d.email}\n`;
+  if (d.service) body += `Interested In: ${d.service}\n`;
+  if (d.time)    body += `Preferred Time: ${d.time}\n`;
+  if (d.message) body += `\nMessage:\n${d.message}`;
+  window.location.href = `mailto:Aquahubwellness@outlook.com?subject=${subject}&body=${encodeURIComponent(body)}`;
+  showSuccess(d.fname, 'email');
+}
+function showSuccess(fname, method) {
+  document.getElementById('contactGrid').style.display = 'none';
+  const el = document.getElementById('contactSuccess');
+  el.style.display = 'block';
+  document.getElementById('successMsg').textContent =
+    `Thank you, ${fname}! ${method === 'WhatsApp' ? 'Your WhatsApp message is prepared — just hit send!' : 'Your email app should open with the message ready to send.'} We'll get back to you very soon.`;
+  document.getElementById('contact').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+function resetForm() {
+  document.getElementById('contactGrid').style.display = '';
+  document.getElementById('contactSuccess').style.display = 'none';
+  ['cf-fname','cf-lname','cf-phone','cf-email','cf-message'].forEach(id => { document.getElementById(id).value = ''; });
+  document.getElementById('cf-service').selectedIndex = 0;
+  document.getElementById('cf-time').selectedIndex = 0;
+}
+</script>
+</body>
+</html>
